@@ -1,0 +1,5 @@
+<div class="country-grid">
+  <div *ngFor="let country of countries">
+    <app-country *ngIf="country" [country]="country"></app-country>
+  </div>
+</div>
