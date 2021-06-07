@@ -1,0 +1,22 @@
+$width: 100%;
+
+img {
+  width: $width;
+  height: 50%;
+  object-fit: cover;
+  border-bottom: 1px solid lightgrey;
+}
+
+h3 {
+  font-size: 16rem;
+}
+
+h3,
+ul {
+  padding-left: 12rem;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 14rem;
+}

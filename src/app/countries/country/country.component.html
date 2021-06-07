@@ -1,0 +1,9 @@
+<img *ngIf="country.flag" [src]="country.flag" alt="Country flag" />
+<h3 *ngIf="country.name">{{ country.name }}</h3>
+<ul>
+  <li *ngIf="country.population">
+    <b>Population</b>: {{ country.population }}
+  </li>
+  <li *ngIf="country.region"><b>Region</b>: {{ country.region }}</li>
+  <li *ngIf="country.capital"><b>Capital</b>: {{ country.capital }}</li>
+</ul>
