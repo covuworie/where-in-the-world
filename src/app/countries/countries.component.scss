@@ -6,7 +6,6 @@ $grid-gap: 40rem;
   grid-template-rows: 1fr;
   column-gap: $grid-gap;
   row-gap: $grid-gap;
-  margin: $grid-gap;
 
   > div {
     background-color: grayscale($color: #f8f8f8);
