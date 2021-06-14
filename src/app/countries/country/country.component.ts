@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { Country, ICountry } from './country.model';
+import { unknownCountry } from './country.model';
 
 @Component({
   selector: 'app-country',
@@ -8,7 +8,7 @@ import { Country, ICountry } from './country.model';
   encapsulation: ViewEncapsulation.None,
 })
 export class CountryComponent {
-  @Input() country: ICountry = new Country('Unknown', 0, '', '', '');
+  @Input() country = unknownCountry;
 
   constructor() {}
 }

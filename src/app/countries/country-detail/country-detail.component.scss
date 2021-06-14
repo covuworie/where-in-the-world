@@ -1,0 +1,89 @@
+.country-details-grid {
+  display: grid;
+  grid-template-areas:
+    "flag"
+    "overview"
+    "lang-money"
+    "codes"
+    "borders";
+
+  @media only screen and (min-width: 600px) and (max-width: 1000px) {
+    grid-template-areas:
+      "flag flag    overview"
+      "lang-money codes codes"
+      "borders borders borders";
+    column-gap: 40rem;
+    row-gap: 40rem;
+  }
+
+  @media only screen and (min-width: 1000px) {
+    grid-template-areas:
+      "flag    overview lang-money codes"
+      "borders borders  borders    borders";
+    column-gap: 40rem;
+    row-gap: 40rem;
+  }
+}
+
+.flag {
+  grid-area: flag;
+  width: 100%;
+}
+
+.overview {
+  grid-area: overview;
+}
+
+.lang-money {
+  grid-area: lang-money;
+}
+
+.codes {
+  grid-area: codes;
+}
+
+.borders {
+  grid-area: borders;
+
+  @media only screen and (min-width: 600px) {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        display: inline;
+      }
+    }
+  }
+}
+
+div {
+  font-size: 16rem;
+
+  h1 {
+    font-size: 25rem;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      padding-bottom: 15rem;
+      display: block;
+
+      a {
+        cursor: pointer;
+
+        @media only screen and (min-width: 600px) {
+          display: inline;
+          padding: 0 16rem 0 0;
+        }
+
+        img {
+          height: 16rem;
+        }
+      }
+    }
+  }
+}
