@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CountriesService } from './countries.service';
-import { Country, ICountry } from './country/country.model';
+import ICountry from './country/country.model';
 
 @Component({
   selector: 'app-countries',
@@ -15,23 +15,11 @@ export class CountriesComponent implements OnInit {
   constructor(private countriesService: CountriesService) {}
 
   ngOnInit(): void {
-    this.countriesService.all.subscribe(
-      (restCountries) => {
-        for (const restCountry of restCountries) {
-          const country = new Country(
-            restCountry.name,
-            restCountry.population,
-            restCountry.region,
-            restCountry.capital,
-            restCountry.flag
-          );
-          this.countries.push(country);
-        }
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        console.log(error.message);
-      }
+    this.countriesService.countries.subscribe(
+      (countries) => (
+        (this.countries = countries.slice()),
+        (error: HttpErrorResponse) => console.error(error)
+      )
     );
   }
 }
