@@ -14,7 +14,6 @@ header {
       padding: 20rem 0 20rem 0;
 
       &:hover {
-        cursor: pointer;
         color: lighten(#000, 40%);
       }
     }
@@ -38,7 +37,6 @@ header {
 
       &:hover {
         background-color: #ddd;
-        cursor: pointer;
       }
     }
   }
@@ -66,7 +64,6 @@ header {
 
         &:hover {
           background-color: #ddd;
-          cursor: pointer;
         }
       }
     }
