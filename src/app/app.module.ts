@@ -15,6 +15,8 @@ import {
 } from './countries/country/alpha-3-to-country.pipe';
 import { LanguagesToNamePipe } from './countries/country/languages-to-names.pipe';
 import { CurrenciesToNameSymbolPipe } from './countries/country/currency-to-name-symbol.pipe';
+import { VisitedComponent } from './countries/visited/visited.component';
+import { WishListComponent } from './countries/wish-list/wish-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { CurrenciesToNameSymbolPipe } from './countries/country/currency-to-name
     Alpha3ToCountryFlagPipe,
     LanguagesToNamePipe,
     CurrenciesToNameSymbolPipe,
+    VisitedComponent,
+    WishListComponent,
   ],
   imports: [
     BrowserModule,

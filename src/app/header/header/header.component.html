@@ -1,15 +1,16 @@
 <header>
   <div>
-    <a class>Where in the world?</a>
+    <a routerLink="/" class>Where in the world?</a>
     <button>
       <fa-icon [icon]="faMoon" class="moon"></fa-icon><span>Dark Mode</span>
     </button>
   </div>
   <nav>
     <div>
-      <a>Countries</a>
-      <a>Countries Visited</a>
-      <a class>Wish List</a>
+      <a routerLink="/countries">Countries</a>
+      <a routerLink="/countries/visited">Countries Visited</a>
+      <a routerLink="/countries/wish-list">Wish List</a>
     </div>
   </nav>
+  <router-outlet></router-outlet>
 </header>

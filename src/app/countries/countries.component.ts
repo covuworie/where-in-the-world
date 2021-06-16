@@ -15,11 +15,10 @@ export class CountriesComponent implements OnInit {
   constructor(private countriesService: CountriesService) {}
 
   ngOnInit(): void {
-    this.countriesService.countries.subscribe(
-      (countries) => (
-        (this.countries = countries.slice()),
-        (error: HttpErrorResponse) => console.error(error)
-      )
-    );
+    try {
+      this.countries = this.countriesService.countries;
+    } catch (error: any) {
+      console.error(error);
+    }
   }
 }

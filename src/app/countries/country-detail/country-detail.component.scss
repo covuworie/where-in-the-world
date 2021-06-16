@@ -6,6 +6,7 @@
     "lang-money"
     "codes"
     "borders";
+  margin: 40rem;
 
   @media only screen and (min-width: 600px) and (max-width: 1000px) {
     grid-template-areas:
@@ -73,15 +74,14 @@ div {
       display: block;
 
       a {
-        cursor: pointer;
-
         @media only screen and (min-width: 600px) {
           display: inline;
           padding: 0 16rem 0 0;
         }
 
         img {
-          height: 16rem;
+          width: 20rem;
+          padding-right: 3rem;
         }
       }
     }
