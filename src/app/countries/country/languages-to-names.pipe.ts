@@ -5,7 +5,10 @@ import ILanguage from './language';
   name: 'languagesToNames',
 })
 export class LanguagesToNamePipe implements PipeTransform {
-  transform(languages: ILanguage[]) {
+  transform(languages: ILanguage[] | undefined) {
+    if (languages === undefined) {
+      return '';
+    }
     const languageNames: string[] = [];
     for (const language of languages) {
       languageNames.push(language.name);
