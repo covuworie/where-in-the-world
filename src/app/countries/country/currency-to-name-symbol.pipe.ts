@@ -5,7 +5,10 @@ import ICurrency from './currency';
   name: 'currenciesToNameSymbol',
 })
 export class CurrenciesToNameSymbolPipe implements PipeTransform {
-  transform(currencies: ICurrency[]) {
+  transform(currencies: ICurrency[] | undefined) {
+    if (currencies === undefined) {
+      return '';
+    }
     const currencyNamesAndSymbols: string[] = [];
     for (const currency of currencies) {
       currencyNamesAndSymbols.push(`${currency.name} (${currency.symbol})`);

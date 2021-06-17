@@ -1,57 +1,36 @@
 <main class="country-details-grid">
-  <img
-    class="flag"
-    *ngIf="country.flag"
-    [src]="country.flag"
-    alt="Country flag"
-  />
+  <img class="flag" [src]="country?.flag" alt="Country flag" />
   <div class="overview">
-    <h1 *ngIf="country.name">{{ country.name }}</h1>
+    <h1>{{ country?.name }}</h1>
     <ul>
-      <li *ngIf="country.nativeName">
-        <b>Native Name</b>: {{ country.nativeName }}
-      </li>
-      <li *ngIf="country.population">
-        <b>Population</b>: {{ country.population }}
-      </li>
-      <li *ngIf="country.region"><b>Region</b>: {{ country.region }}</li>
-      <li *ngIf="country.subregion">
-        <b>Sub Region</b>: {{ country.subregion }}
-      </li>
-      <li *ngIf="country.capital"><b>Capital</b>: {{ country.capital }}</li>
+      <li><b>Native Name</b>: {{ country?.nativeName }}</li>
+      <li><b>Population</b>: {{ country?.population }}</li>
+      <li><b>Region</b>: {{ country?.region }}</li>
+      <li><b>Sub Region</b>: {{ country?.subregion }}</li>
+      <li><b>Capital</b>: {{ country?.capital }}</li>
     </ul>
   </div>
   <div class="lang-money">
     <ul>
-      <li *ngIf="country.languages">
-        <b>Languages</b>: {{ country.languages | languagesToNames }}
-      </li>
-      <li *ngIf="country.currencies">
+      <li><b>Languages</b>: {{ country?.languages | languagesToNames }}</li>
+      <li>
         <b>Currencies</b>:
-        {{ country.currencies | currenciesToNameSymbol }}
+        {{ country?.currencies | currenciesToNameSymbol }}
       </li>
     </ul>
   </div>
   <div class="codes">
     <ul>
-      <li *ngIf="country.timezones">
-        <b>Time Zones</b>: {{ country.timezones.join(", ") }}
-      </li>
-      <li *ngIf="country.callingCodes">
-        <b>Calling Codes</b>: {{ country.callingCodes.join(", ") }}
-      </li>
-      <li *ngIf="country.alpha3Code">
-        <b>ISO 3166-1 alpha-3 Code</b>: {{ country.alpha3Code }}
-      </li>
-      <li *ngIf="country.topLevelDomain">
-        <b>Top Level Domain</b>: {{ country.topLevelDomain }}
-      </li>
+      <li><b>Time Zones</b>: {{ country?.timezones?.join(", ") }}</li>
+      <li><b>Calling Codes</b>: {{ country?.callingCodes?.join(", ") }}</li>
+      <li><b>ISO 3166-1 alpha-3 Code</b>: {{ country?.alpha3Code }}</li>
+      <li><b>Top Level Domain</b>: {{ country?.topLevelDomain }}</li>
     </ul>
   </div>
   <div class="borders">
     <p><b class="bordering-countries">Bordering Countries</b></p>
     <ul>
-      <li *ngFor="let alpha3Code of country.borders">
+      <li *ngFor="let alpha3Code of country?.borders">
         <a>
           <img
             src="{{ alpha3Code | alpha3ToCountryFlag }}"

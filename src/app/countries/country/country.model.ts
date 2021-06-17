@@ -42,15 +42,6 @@ export class Country {
   ) {}
 }
 
-export const unknownCountry: ICountry = new Country(
-  'Unknown',
-  0,
-  '',
-  '',
-  '',
-  ''
-);
-
 export type Alpha3CodeToCountry = {
   [key: string]: { name: string; flag: string };
 };

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { unknownCountry } from '../country/country.model';
+import ICountry from '../country/country.model';
 
 @Component({
   selector: 'app-country-detail',
@@ -9,7 +9,7 @@ import { unknownCountry } from '../country/country.model';
   styleUrls: ['./country-detail.component.scss'],
 })
 export class CountryDetailComponent implements OnInit {
-  country = unknownCountry;
+  country: ICountry | null = null;
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
