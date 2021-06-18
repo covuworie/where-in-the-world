@@ -7,9 +7,18 @@
   </div>
   <nav>
     <div>
-      <a routerLink="/countries">Countries</a>
-      <a routerLink="/countries/visited">Countries Visited</a>
-      <a routerLink="/countries/wish-list">Wish List</a>
+      <a
+        routerLink="/countries"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Countries</a
+      >
+      <a routerLink="/countries/visited" routerLinkActive="active-link"
+        >Countries Visited</a
+      >
+      <a routerLink="/countries/wish-list" routerLinkActive="active-link"
+        >Wish List</a
+      >
     </div>
   </nav>
   <router-outlet></router-outlet>

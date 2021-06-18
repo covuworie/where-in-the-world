@@ -15,6 +15,7 @@ header {
 
       &:hover {
         color: lighten(#000, 40%);
+        background-color: transparent;
       }
     }
 
@@ -61,11 +62,12 @@ header {
 
       a {
         padding: 10rem;
-
-        &:hover {
-          background-color: #ddd;
-        }
       }
     }
   }
+}
+
+.active-link,
+a:hover {
+  background-color: #ddd;
 }
