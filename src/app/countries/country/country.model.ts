@@ -40,6 +40,38 @@ export class Country {
     public currencies?: ICurrency[],
     public languages?: ILanguage[]
   ) {}
+
+  static fromRestCountry(restCountry: ICountry, all_fields = true) {
+    if (all_fields) {
+      const country = new Country(
+        restCountry.name,
+        restCountry.population,
+        restCountry.region,
+        restCountry.capital,
+        restCountry.flag,
+        restCountry.alpha3Code,
+        restCountry.nativeName,
+        restCountry.subregion,
+        restCountry.topLevelDomain,
+        restCountry.callingCodes,
+        restCountry.timezones,
+        restCountry.borders,
+        restCountry.currencies,
+        restCountry.languages
+      );
+      return country;
+    }
+
+    const country = new Country(
+      restCountry.name,
+      restCountry.population,
+      restCountry.region,
+      restCountry.capital,
+      restCountry.flag,
+      restCountry.alpha3Code
+    );
+    return country;
+  }
 }
 
 export type Alpha3CodeToCountry = {
