@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CountriesService } from './countries.service';
 import ICountry from './country/country.model';
@@ -16,7 +15,14 @@ export class CountriesComponent implements OnInit {
 
   ngOnInit(): void {
     try {
-      this.countries = this.countriesService.countries;
+      this.countries = this.countriesService.getCountries([
+        'name',
+        'population',
+        'region',
+        'capital',
+        'flag',
+        'alpha3Code',
+      ]);
     } catch (error: any) {
       console.error(error);
     }
