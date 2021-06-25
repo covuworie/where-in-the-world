@@ -31,7 +31,7 @@
     <p><b class="bordering-countries">Bordering Countries</b></p>
     <ul>
       <li *ngFor="let alpha3Code of country?.borders">
-        <a>
+        <a routerLink="/countries/{{ alpha3Code | alpha3ToCountryName }}">
           <img
             src="{{ alpha3Code | alpha3ToCountryFlag }}"
             alt="{{ alpha3Code | alpha3ToCountryName }}"
