@@ -7,6 +7,7 @@ import ICountry, {
   Alpha3CodeToCountry,
   Country,
 } from './country/country.model';
+import { Region } from './regions/region.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,14 +21,8 @@ export class CountriesService {
   constructor(private http: HttpClient) {}
 
   getCountries(fields: string[]) {
-    let countries: ICountry[] = [];
-
-    const restCountries: ICountry[] | null =
-      LocalStorageService.getOrRemoveExpiredItem('countries');
-    if (restCountries) {
-      countries = restCountries.map((restCountry) =>
-        Country.fromRestCountry(restCountry, false)
-      );
+    let countries = this.getCountriesFromLocalStorage();
+    if (countries.length > 0) {
       return countries;
     }
 
@@ -65,10 +60,33 @@ export class CountriesService {
     return countries;
   }
 
+  filterByRegion(region: Region) {
+    let countries = this.getCountriesFromLocalStorage();
+
+    if (countries.length === 0) {
+      countries = this.getCountries([
+        'name',
+        'population',
+        'region',
+        'capital',
+        'flag',
+        'alpha3Code',
+      ]);
+    }
+
+    const filteredCountries = countries.filter(
+      (country) => country.region === region
+    );
+    return filteredCountries;
+  }
+
   alpha3CodeToCountry(alpha3Code: string) {
     const alphaCodeToCountry: Alpha3CodeToCountry | null =
       LocalStorageService.getOrRemoveExpiredItem('alpha3CodeToCountry');
-    if (!alphaCodeToCountry) {
+
+    if (alphaCodeToCountry) {
+      this.alpha3ToCountry = alphaCodeToCountry;
+    } else {
       this.getCountries([
         'name',
         'population',
@@ -78,10 +96,16 @@ export class CountriesService {
         'alpha3Code',
       ]);
     }
-    return { ...this.alpha3ToCountry[alpha3Code] };
+
+    return this.alpha3ToCountry[alpha3Code];
   }
 
   countryDetails(name: string) {
+    let country = this.getCountryFromLocalStorage(name);
+    if (country) {
+      return country;
+    }
+
     const restCountry: ICountry | null =
       LocalStorageService.getOrRemoveExpiredItem(name);
     if (restCountry) {
@@ -102,5 +126,27 @@ export class CountriesService {
         ),
         map((restCountry) => Country.fromRestCountry(restCountry))
       );
+  }
+
+  private getCountriesFromLocalStorage() {
+    const restCountries: ICountry[] | null =
+      LocalStorageService.getOrRemoveExpiredItem('countries');
+    if (restCountries) {
+      const countries = restCountries.map((restCountry) =>
+        Country.fromRestCountry(restCountry, false)
+      );
+      return countries;
+    }
+    return [];
+  }
+
+  private getCountryFromLocalStorage(name: string) {
+    const restCountry: ICountry | null =
+      LocalStorageService.getOrRemoveExpiredItem(name);
+    if (restCountry) {
+      const country = Country.fromRestCountry(restCountry);
+      return country;
+    }
+    return null;
   }
 }
