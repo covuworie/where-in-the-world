@@ -13,3 +13,40 @@ $grid-gap: 40rem;
     border: 1px solid lightgrey;
   }
 }
+
+// Radio toolbar is created with radio buttons and styled based on:
+// https://stackoverflow.com/questions/4641752/css-how-to-style-a-selected-radio-buttons-label
+.radio-toolbar {
+  margin: $grid-gap 0 0 $grid-gap;
+
+  input[type="radio"] {
+    display: none;
+
+    &:checked + label {
+      background-color: #ddd;
+    }
+  }
+
+  label {
+    display: inline-block;
+    position: relative;
+    background-color: #fff;
+    padding: 10rem;
+    font-size: 14rem;
+    cursor: pointer;
+
+    span {
+      position: absolute;
+      right: 10rem;
+    }
+  }
+
+  input,
+  label {
+    width: 150rem;
+  }
+}
+
+.hide-option {
+  display: none;
+}
