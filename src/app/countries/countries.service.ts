@@ -17,13 +17,27 @@ export class CountriesService {
   // 30 days time to live (TTL) as the countries data is updated on the order of months
   private readonly ttl = 1000 * 60 * 60 * 24 * 30;
   private alpha3ToCountry: Alpha3CodeToCountry = {};
+  private countries: ICountry[];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.countries = this.countriesFromLocalStorage;
+
+    if (this.countries.length === 0) {
+      this.countries = this.getCountries([
+        'name',
+        'population',
+        'region',
+        'capital',
+        'flag',
+        'alpha3Code',
+        'nativeName',
+      ]);
+    }
+  }
 
   getCountries(fields: string[]) {
-    let countries = this.getCountriesFromLocalStorage();
-    if (countries.length > 0) {
-      return countries;
+    if (this.countries.length > 0) {
+      return this.countries;
     }
 
     const fieldsSlug = fields.join(';');
@@ -47,7 +61,7 @@ export class CountriesService {
             };
 
             const country = Country.fromRestCountry(restCountry, false);
-            countries.push(country);
+            this.countries.push(country);
           }
           LocalStorageService.setItemWithExpiry(
             'alpha3CodeToCountry',
@@ -57,46 +71,26 @@ export class CountriesService {
         },
         (error: HttpErrorResponse) => throwError(error)
       );
-    return countries;
+    return this.countries;
   }
 
   filterByRegion(region: Region) {
-    let countries = this.getCountriesFromLocalStorage();
-
-    if (countries.length === 0) {
-      countries = this.getCountries([
-        'name',
-        'population',
-        'region',
-        'capital',
-        'flag',
-        'alpha3Code',
-      ]);
-    }
-
-    const filteredCountries = countries.filter(
+    const filteredCountries = this.countries.filter(
       (country) => country.region === region
     );
     return filteredCountries;
   }
 
+  filterByCountry(partialName: string) {
+    const filteredCountries = this.countries.filter(
+      (country) =>
+        country.name.includes(partialName) ||
+        country.nativeName.includes(partialName)
+    );
+    return filteredCountries;
+  }
+
   alpha3CodeToCountry(alpha3Code: string) {
-    const alphaCodeToCountry: Alpha3CodeToCountry | null =
-      LocalStorageService.getOrRemoveExpiredItem('alpha3CodeToCountry');
-
-    if (alphaCodeToCountry) {
-      this.alpha3ToCountry = alphaCodeToCountry;
-    } else {
-      this.getCountries([
-        'name',
-        'population',
-        'region',
-        'capital',
-        'flag',
-        'alpha3Code',
-      ]);
-    }
-
     return this.alpha3ToCountry[alpha3Code];
   }
 
@@ -128,7 +122,7 @@ export class CountriesService {
       );
   }
 
-  private getCountriesFromLocalStorage() {
+  private get countriesFromLocalStorage() {
     const restCountries: ICountry[] | null =
       LocalStorageService.getOrRemoveExpiredItem('countries');
     if (restCountries) {
