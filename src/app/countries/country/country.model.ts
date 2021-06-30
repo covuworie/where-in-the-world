@@ -8,7 +8,7 @@ export default interface ICountry {
   capital: string;
   flag: string;
   alpha3Code: string;
-  nativeName?: string;
+  nativeName: string;
   subregion?: string;
   topLevelDomain?: string;
   callingCodes?: number[];
@@ -24,23 +24,6 @@ export default interface ICountry {
 }
 
 export class Country {
-  constructor(
-    public name: string,
-    public population: number,
-    public region: string,
-    public capital: string,
-    public flag: string,
-    public alpha3Code: string,
-    public nativeName?: string,
-    public subregion?: string,
-    public topLevelDomain?: string,
-    public callingCodes?: number[],
-    public timezones?: string[],
-    public borders?: string[],
-    public currencies?: ICurrency[],
-    public languages?: ILanguage[]
-  ) {}
-
   static fromRestCountry(restCountry: ICountry, all_fields = true) {
     if (all_fields) {
       const country = new Country(
@@ -68,10 +51,28 @@ export class Country {
       restCountry.region,
       restCountry.capital,
       restCountry.flag,
-      restCountry.alpha3Code
+      restCountry.alpha3Code,
+      restCountry.nativeName
     );
     return country;
   }
+
+  private constructor(
+    public name: string,
+    public population: number,
+    public region: string,
+    public capital: string,
+    public flag: string,
+    public alpha3Code: string,
+    public nativeName: string,
+    public subregion?: string,
+    public topLevelDomain?: string,
+    public callingCodes?: number[],
+    public timezones?: string[],
+    public borders?: string[],
+    public currencies?: ICurrency[],
+    public languages?: ILanguage[]
+  ) {}
 }
 
 export type Alpha3CodeToCountry = {

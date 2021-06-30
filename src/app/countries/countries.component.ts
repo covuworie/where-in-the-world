@@ -8,6 +8,7 @@ import {
 import { CountriesService } from './countries.service';
 import ICountry from './country/country.model';
 import { Region, SORTED_REGIONS } from './regions/region.model';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-countries',
@@ -16,6 +17,8 @@ import { Region, SORTED_REGIONS } from './regions/region.model';
   encapsulation: ViewEncapsulation.None,
 })
 export class CountriesComponent implements OnInit {
+  faSearch = faSearch;
+
   @ViewChild('regionDropDown')
   regionDropDown: ElementRef<HTMLDivElement> | null = null;
   filterHeader = 'All Regions';
@@ -34,6 +37,7 @@ export class CountriesComponent implements OnInit {
         'capital',
         'flag',
         'alpha3Code',
+        'nativeName',
       ]);
     } catch (error: any) {
       console.error(error);
@@ -62,7 +66,7 @@ export class CountriesComponent implements OnInit {
     const spans = this.dropDownSymbols;
     inputs.forEach((input, index) => {
       const parentDiv = input.parentElement as HTMLDivElement;
-      parentDiv.hidden = input.value !== value;
+      parentDiv.hidden = (input as HTMLInputElement).value !== value;
       if (index === selectedIndex) {
         spans[index].hidden = false;
       }
@@ -78,9 +82,13 @@ export class CountriesComponent implements OnInit {
     this.countries = filteredCountries;
   }
 
+  onSearchCountry(value: string) {
+    this.countries = this.countriesService.filterByCountry(value);
+  }
+
   private get regionOptions() {
     const inputs = Array.from(
-      this.regionDropDown!.nativeElement.getElementsByTagName('input')
+      this.regionDropDown!.nativeElement.getElementsByClassName('search-region')
     );
     return inputs;
   }

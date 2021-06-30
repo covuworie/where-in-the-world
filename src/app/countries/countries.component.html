@@ -3,20 +3,36 @@
     https://stackoverflow.com/questions/4748875/how-can-i-control-the-height-of-an-option-element-in-webkit/4749864#4749864
   So simulate the same behaviour using radio buttons. Note if we have a multi-select dropdown then we can do the same with checkboxes-->
   <div class="radio-toolbar" #regionDropDown>
-    <div>
-      <input
-        type="radio"
-        name="region-dropdown"
-        [id]="filterHeader"
-        [value]="filterHeader"
-        checked
-        (click)="onDropDownRegion()"
-        (change)="onChangeRegion($event)"
-      />
-      <label [for]="filterHeader">{{ filterHeader }} <span>▼</span></label>
+    <div class="search">
+      <div class="search-wrapper">
+        <fa-icon [icon]="faSearch"></fa-icon>
+        <input
+          class="search-country"
+          type="text"
+          placeholder="Search for a country..."
+          (keyup)="onSearchCountry(countrySearch.value)"
+          #countrySearch
+        />
+      </div>
+
+      <div>
+        <input
+          class="search-region"
+          type="radio"
+          name="region-dropdown"
+          [id]="filterHeader"
+          [value]="filterHeader"
+          checked
+          (click)="onDropDownRegion()"
+          (change)="onChangeRegion($event)"
+        />
+        <label [for]="filterHeader">{{ filterHeader }} <span>▼</span></label>
+      </div>
     </div>
-    <div *ngFor="let region of regions" hidden>
+
+    <div class="regions" *ngFor="let region of regions" hidden>
       <input
+        class="search-region"
         type="radio"
         name="region-dropdown"
         [id]="region"

@@ -1,12 +1,15 @@
 $grid-gap: 40rem;
 
+main {
+  margin: $grid-gap;
+}
+
 .country-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-template-rows: 1fr;
   column-gap: $grid-gap;
   row-gap: $grid-gap;
-  margin: 40rem;
 
   > a {
     background-color: grayscale($color: #f8f8f8);
@@ -17,7 +20,17 @@ $grid-gap: 40rem;
 // Radio toolbar is created with radio buttons and styled based on:
 // https://stackoverflow.com/questions/4641752/css-how-to-style-a-selected-radio-buttons-label
 .radio-toolbar {
-  margin: $grid-gap 0 0 $grid-gap;
+  margin-bottom: $grid-gap;
+
+  input[type="text"] {
+    padding: 7rem 0 7rem 7rem;
+    width: 400rem;
+
+    @media only screen and (max-width: 700px) {
+      width: 100%;
+      margin-bottom: $grid-gap;
+    }
+  }
 
   input[type="radio"] {
     display: none;
@@ -31,6 +44,7 @@ $grid-gap: 40rem;
     display: inline-block;
     position: relative;
     background-color: #fff;
+    width: 150rem;
     padding: 10rem;
     font-size: 14rem;
     cursor: pointer;
@@ -40,13 +54,39 @@ $grid-gap: 40rem;
       right: 10rem;
     }
   }
-
-  input,
-  label {
-    width: 150rem;
-  }
 }
 
 .hide-option {
   display: none;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.regions {
+  @media only screen and (min-width: 600px) {
+    position: relative;
+    left: calc(100vw - 265rem);
+  }
+}
+
+.search-wrapper {
+  position: relative;
+
+  fa-icon {
+    position: fixed;
+    padding: 10rem;
+    color: lightgrey;
+  }
+}
+
+.search-country {
+  text-indent: $grid-gap;
 }
