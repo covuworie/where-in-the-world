@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CountriesService } from './countries.service';
 import ICountry from './country/country.model';
 import { Region, SORTED_REGIONS } from './regions/region.model';
@@ -19,11 +13,11 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export class CountriesComponent implements OnInit {
   faSearch = faSearch;
 
-  @ViewChild('regionDropDown')
-  regionDropDown: ElementRef<HTMLDivElement> | null = null;
-  filterHeader = 'All Regions';
-  regions = SORTED_REGIONS;
+  readonly filterHeader = 'All Regions';
+  selectedRegion = this.filterHeader;
+  regions = [this.selectedRegion];
   countries: ICountry[] = [];
+  private regionsOpen = false;
   private allCountries: ICountry[] = [];
 
   constructor(private countriesService: CountriesService) {}
@@ -45,58 +39,39 @@ export class CountriesComponent implements OnInit {
     this.countries = this.allCountries;
   }
 
-  onDropDownRegion() {
-    const inputs = this.regionOptions;
-    const spans = this.dropDownSymbols;
-    inputs.forEach((input, index) => {
-      const parentDiv = input.parentElement as HTMLDivElement;
-      parentDiv.hidden = false;
-      if (index > 0) {
-        spans[index].hidden = true;
-      } else {
-        spans[0].hidden = false;
-      }
-    });
-  }
-
-  onChangeRegion(event: Event) {
-    const value = (event.target as HTMLSelectElement).value;
-    const selectedIndex = this.regions.indexOf(value as Region) + 1;
-    const inputs = this.regionOptions;
-    const spans = this.dropDownSymbols;
-    inputs.forEach((input, index) => {
-      const parentDiv = input.parentElement as HTMLDivElement;
-      parentDiv.hidden = (input as HTMLInputElement).value !== value;
-      if (index === selectedIndex) {
-        spans[index].hidden = false;
-      }
-    });
+  onChangeRegion(value: string) {
+    this.regions.forEach((region) => this.toggleRegion(region));
+    this.selectedRegion = value;
 
     if (value === this.filterHeader) {
       this.countries = this.allCountries;
+      this.toggleDropdown();
       return;
     }
     const filteredCountries = this.countriesService.filterByRegion(
       value as Region
     );
     this.countries = filteredCountries;
+    this.toggleDropdown();
+  }
+
+  toggleDropdown() {
+    this.regionsOpen = !this.regionsOpen;
+
+    if (this.regionsOpen) {
+      this.regions = [this.filterHeader].concat(SORTED_REGIONS);
+    } else {
+      this.regions = [this.selectedRegion];
+    }
+    console.log(this.regionsOpen);
+    console.log(this.regions);
+  }
+
+  toggleRegion(region: string) {
+    return region !== this.selectedRegion;
   }
 
   onSearchCountry(value: string) {
     this.countries = this.countriesService.filterByCountry(value);
-  }
-
-  private get regionOptions() {
-    const inputs = Array.from(
-      this.regionDropDown!.nativeElement.getElementsByClassName('search-region')
-    );
-    return inputs;
-  }
-
-  private get dropDownSymbols() {
-    const spans = Array.from(
-      this.regionDropDown!.nativeElement.getElementsByTagName('span')
-    );
-    return spans;
   }
 }
