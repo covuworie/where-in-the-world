@@ -23,8 +23,9 @@ main {
   margin-bottom: $grid-gap;
 
   input[type="text"] {
-    padding: 7rem 0 7rem 7rem;
+    padding: 9rem 0 9rem 9rem;
     width: 400rem;
+    border: none;
 
     @media only screen and (max-width: 700px) {
       width: 100%;
@@ -36,6 +37,10 @@ main {
     display: none;
 
     &:checked + label {
+      background-color: #ddd;
+    }
+
+    &:hover + label {
       background-color: #ddd;
     }
   }
@@ -73,7 +78,7 @@ main {
 .regions {
   @media only screen and (min-width: 600px) {
     position: relative;
-    left: calc(100vw - 265rem);
+    left: calc(100vw - 263rem);
   }
 }
 

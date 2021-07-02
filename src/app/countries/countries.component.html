@@ -2,7 +2,7 @@
   <!-- Cannot set padding on option tag: See
     https://stackoverflow.com/questions/4748875/how-can-i-control-the-height-of-an-option-element-in-webkit/4749864#4749864
   So simulate the same behaviour using radio buttons. Note if we have a multi-select dropdown then we can do the same with checkboxes-->
-  <div class="radio-toolbar" #regionDropDown>
+  <div class="radio-toolbar">
     <div class="search">
       <div class="search-wrapper">
         <fa-icon [icon]="faSearch"></fa-icon>
@@ -15,32 +15,32 @@
         />
       </div>
 
-      <div>
+      <div (click)="toggleDropdown()">
         <input
-          class="search-region"
           type="radio"
-          name="region-dropdown"
-          [id]="filterHeader"
-          [value]="filterHeader"
+          [name]="selectedRegion"
           checked
-          (click)="onDropDownRegion()"
-          (change)="onChangeRegion($event)"
+          (change)="onChangeRegion(selectedRegion)"
+          #selectedRegionEl
         />
-        <label [for]="filterHeader">{{ filterHeader }} <span>▼</span></label>
+        <label [for]="selectedRegion"
+          >{{ selectedRegion }} <span>▼</span></label
+        >
       </div>
     </div>
 
-    <div class="regions" *ngFor="let region of regions" hidden>
-      <input
-        class="search-region"
-        type="radio"
-        name="region-dropdown"
-        [id]="region"
-        [value]="region"
-        (click)="onDropDownRegion()"
-        (change)="onChangeRegion($event)"
-      />
-      <label [for]="region">{{ region }} <span hidden>▼</span></label>
+    <div class="regions" *ngFor="let region of regions">
+      <ng-container *ngIf="toggleRegion(region)">
+        <input
+          type="radio"
+          [name]="region"
+          [id]="region"
+          [value]="region"
+          (change)="onChangeRegion(regionEl.value)"
+          #regionEl
+        />
+        <label [for]="region">{{ region }} <span hidden>▼</span></label>
+      </ng-container>
     </div>
   </div>
   <div class="country-grid">
