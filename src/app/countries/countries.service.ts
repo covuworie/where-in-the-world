@@ -84,8 +84,8 @@ export class CountriesService {
   filterByCountry(partialName: string) {
     const filteredCountries = this.countries.filter(
       (country) =>
-        country.name.includes(partialName) ||
-        country.nativeName.includes(partialName)
+        country.name.toLowerCase().includes(partialName.toLowerCase()) ||
+        country.nativeName.toLowerCase().includes(partialName.toLowerCase())
     );
     return filteredCountries;
   }
