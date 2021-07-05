@@ -63,8 +63,6 @@ export class CountriesComponent implements OnInit {
     } else {
       this.regions = [this.selectedRegion];
     }
-    console.log(this.regionsOpen);
-    console.log(this.regions);
   }
 
   toggleRegion(region: string) {
