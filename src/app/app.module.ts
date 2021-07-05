@@ -17,6 +17,7 @@ import { LanguagesToNamePipe } from './countries/country/languages-to-names.pipe
 import { CurrenciesToNameSymbolPipe } from './countries/country/currency-to-name-symbol.pipe';
 import { VisitedComponent } from './countries/visited/visited.component';
 import { WishListComponent } from './countries/wish-list/wish-list.component';
+import { CountryGridComponent } from './countries/country-grid/country-grid.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { WishListComponent } from './countries/wish-list/wish-list.component';
     CurrenciesToNameSymbolPipe,
     VisitedComponent,
     WishListComponent,
+    CountryGridComponent,
   ],
   imports: [
     BrowserModule,

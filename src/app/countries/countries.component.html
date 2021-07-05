@@ -43,9 +43,5 @@
       </ng-container>
     </div>
   </div>
-  <div class="country-grid">
-    <a routerLink="{{ country.name }}" *ngFor="let country of countries">
-      <app-country *ngIf="country" [country]="country"></app-country>
-    </a>
-  </div>
+  <app-country-grid [countries]="countries"></app-country-grid>
 </main>

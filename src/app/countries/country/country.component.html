@@ -1,7 +1,17 @@
-<img [src]="country?.flag" alt="Country flag" />
-<h3>{{ country?.name }}</h3>
+<a routerLink="{{ country?.name }}"
+  ><img [src]="country?.flag" alt="Country flag"
+/></a>
+<a routerLink="{{ country?.name }}"
+  ><h3>{{ country?.name }}</h3>
+</a>
 <ul>
   <li><b>Population</b>: {{ country?.population }}</li>
   <li><b>Region</b>: {{ country?.region }}</li>
   <li><b>Capital</b>: {{ country?.capital }}</li>
 </ul>
+<fa-icon
+  (click)="onToggleWishList()"
+  [icon]="faHeart"
+  size="2x"
+  [classes]="['heart']"
+></fa-icon>

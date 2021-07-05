@@ -9,7 +9,7 @@ import ICountry from '../country/country.model';
   styleUrls: ['./country-detail.component.scss'],
 })
 export class CountryDetailComponent implements OnInit {
-  country: ICountry | null = null;
+  country!: ICountry;
 
   constructor(private activatedRoute: ActivatedRoute) {}
 

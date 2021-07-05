@@ -4,19 +4,6 @@ main {
   margin: $grid-gap;
 }
 
-.country-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-template-rows: 1fr;
-  column-gap: $grid-gap;
-  row-gap: $grid-gap;
-
-  > a {
-    background-color: grayscale($color: #f8f8f8);
-    border: 1px solid lightgrey;
-  }
-}
-
 // Radio toolbar is created with radio buttons and styled based on:
 // https://stackoverflow.com/questions/4641752/css-how-to-style-a-selected-radio-buttons-label
 .radio-toolbar {
