@@ -42,7 +42,7 @@ export class CountryComponent implements OnInit {
     this.onWishList = !this.onWishList;
 
     if (!this.onWishList) {
-      this.wishListService.removeCountry(this.country.name);
+      this.wishListService.removeCountry(this.country.numericCode);
       this.heartComponent.styles = this.wishListHeartOff;
     } else {
       this.wishListService.addCountry(this.country);

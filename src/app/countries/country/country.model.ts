@@ -2,6 +2,7 @@ import ICurrency from './currency';
 import ILanguage from './language';
 
 export default interface ICountry {
+  numericCode: number;
   name: string;
   population: number;
   region: string;
@@ -27,6 +28,7 @@ export class Country {
   static fromRestCountry(restCountry: ICountry, all_fields = true) {
     if (all_fields) {
       const country = new Country(
+        restCountry.numericCode,
         restCountry.name,
         restCountry.population,
         restCountry.region,
@@ -46,6 +48,7 @@ export class Country {
     }
 
     const country = new Country(
+      restCountry.numericCode,
       restCountry.name,
       restCountry.population,
       restCountry.region,
@@ -58,6 +61,7 @@ export class Country {
   }
 
   private constructor(
+    public numericCode: number,
     public name: string,
     public population: number,
     public region: string,
@@ -78,3 +82,14 @@ export class Country {
 export type Alpha3CodeToCountry = {
   [key: string]: { name: string; flag: string };
 };
+
+export const simpleFields = [
+  'numericCode',
+  'name',
+  'population',
+  'region',
+  'capital',
+  'flag',
+  'alpha3Code',
+  'nativeName',
+];

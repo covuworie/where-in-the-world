@@ -6,6 +6,7 @@ import { LocalStorageService } from '../shared/local-storage.service';
 import ICountry, {
   Alpha3CodeToCountry,
   Country,
+  simpleFields,
 } from './country/country.model';
 import { Region } from './regions/region.model';
 
@@ -23,15 +24,7 @@ export class CountriesService {
     this.countries = this.countriesFromLocalStorage;
 
     if (this.countries.length === 0) {
-      this.countries = this.getCountries([
-        'name',
-        'population',
-        'region',
-        'capital',
-        'flag',
-        'alpha3Code',
-        'nativeName',
-      ]);
+      this.countries = this.getCountries(simpleFields);
     }
   }
 
