@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CountriesService } from './countries.service';
-import ICountry from './country/country.model';
+import ICountry, { simpleFields } from './country/country.model';
 import { Region, SORTED_REGIONS } from './regions/region.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,15 +24,7 @@ export class CountriesComponent implements OnInit {
 
   ngOnInit(): void {
     try {
-      this.allCountries = this.countriesService.getCountries([
-        'name',
-        'population',
-        'region',
-        'capital',
-        'flag',
-        'alpha3Code',
-        'nativeName',
-      ]);
+      this.allCountries = this.countriesService.getCountries(simpleFields);
     } catch (error: any) {
       console.error(error);
     }
