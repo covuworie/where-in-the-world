@@ -26,12 +26,15 @@ export class WishListService {
       const allCountries = this.countriesService.getCountries(simpleFields);
       this.http
         .get<{ name: string; id: number }[]>(`${this.jsonServerUrl}`)
-        .subscribe((wishList) => {
-          this.countries = allCountries.filter((country) =>
-            wishList.map((item) => item.name).includes(country.name)
-          );
-          (error: HttpErrorResponse) => throwError(error);
-        });
+        .subscribe(
+          (wishList) => {
+            this.countries = allCountries.filter((country) =>
+              wishList.map((item) => item.name).includes(country.name)
+            );
+            this.countriesChanged.next(this.countries);
+          },
+          (error: HttpErrorResponse) => throwError(error)
+        );
     } catch (error: any) {
       throwError(error);
     }
