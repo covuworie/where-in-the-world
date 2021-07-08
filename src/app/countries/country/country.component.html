@@ -9,9 +9,4 @@
   <li><b>Region</b>: {{ country?.region }}</li>
   <li><b>Capital</b>: {{ country?.capital }}</li>
 </ul>
-<fa-icon
-  (click)="onToggleWishList()"
-  [icon]="faHeart"
-  size="2x"
-  [classes]="['heart']"
-></fa-icon>
+<fa-icon (click)="onToggleWishList()" [icon]="faHeart" size="2x"></fa-icon>

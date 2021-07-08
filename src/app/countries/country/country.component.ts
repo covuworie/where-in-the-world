@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import ICountry from './country.model';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { WishListService } from '../wish-list/wish-list.service';
@@ -14,7 +8,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
   selector: 'app-country',
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class CountryComponent implements OnInit {
   faHeart = faHeart;
@@ -24,8 +17,14 @@ export class CountryComponent implements OnInit {
   @Input() country!: ICountry;
 
   private onWishList = false;
-  private readonly wishListHeartOn = { stroke: '#ff0000', color: '#ff0000' };
-  private readonly wishListHeartOff = { stroke: 'ff0000', color: 'faa0a0' };
+  private readonly wishListHeartOn = {
+    position: 'absolute',
+    bottom: '12rem',
+    right: '12rem',
+    stroke: '#ff0000',
+    color: '#ff0000',
+  };
+  private wishListHeartOff = { ...this.wishListHeartOn, color: '#faa0a0' };
 
   constructor(private wishListService: WishListService) {}
 
