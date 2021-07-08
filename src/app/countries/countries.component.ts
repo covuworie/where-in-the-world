@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountriesService } from './countries.service';
 import ICountry, { simpleFields } from './country/country.model';
 import { Region, SORTED_REGIONS } from './regions/region.model';
@@ -8,7 +8,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-countries',
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class CountriesComponent implements OnInit {
   faSearch = faSearch;

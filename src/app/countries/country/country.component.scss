@@ -20,12 +20,8 @@ ul {
 ul {
   list-style-type: none;
   font-size: 14rem;
-}
 
-.heart {
-  position: absolute;
-  bottom: $padding;
-  right: $padding;
-
-  cursor: pointer;
+  li {
+    line-height: 20rem;
+  }
 }
