@@ -26,10 +26,12 @@ export class CountriesService {
       this.countries = this.getCountries(simpleFields);
     }
 
-    this.alpha3ToCountry = this.alpha3CodeToCountryFromLocalStorage;
-    if (Object.keys(this.alpha3ToCountry).length === 0) {
-      this.alpha3ToCountry = this.alpha3ToCountries;
-    }
+    this.countries.forEach((country) => {
+      this.alpha3ToCountry[country.alpha3Code] = {
+        name: country.name,
+        flag: country.flag,
+      };
+    });
   }
 
   getCountries(fields: string[]) {
@@ -37,6 +39,7 @@ export class CountriesService {
       return this.countries;
     }
 
+    const countries: ICountry[] = [];
     const fieldsSlug = fields.join(';');
     this.http
       .get<ICountry[]>(`${this.baseUrl}/all?fields=${fieldsSlug}`)
@@ -52,12 +55,12 @@ export class CountriesService {
       .subscribe(
         (restCountries) => {
           restCountries.map((restCountry) =>
-            this.countries.push(Country.fromRestCountry(restCountry, false))
+            countries.push(Country.fromRestCountry(restCountry, false))
           );
         },
         (error: HttpErrorResponse) => throwError(error)
       );
-    return this.countries;
+    return countries;
   }
 
   filterByRegion(region: Region) {
@@ -128,30 +131,5 @@ export class CountriesService {
       return country;
     }
     return null;
-  }
-
-  private get alpha3CodeToCountryFromLocalStorage() {
-    const alpha3ToCountry: Alpha3CodeToCountry | null =
-      LocalStorageService.getOrRemoveExpiredItem('alpha3CodeToCountry');
-    return alpha3ToCountry ? alpha3ToCountry : {};
-  }
-
-  private get alpha3ToCountries() {
-    const alpha3ToCountries: Alpha3CodeToCountry = {};
-    this.countries.map(
-      (country) =>
-        (alpha3ToCountries[country.alpha3Code] = {
-          name: country.name,
-          flag: country.flag,
-        })
-    );
-
-    LocalStorageService.setItemWithExpiry(
-      'alpha3CodeToCountry',
-      JSON.stringify(this.alpha3ToCountry),
-      this.ttl
-    );
-
-    return alpha3ToCountries;
   }
 }
