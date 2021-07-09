@@ -22,9 +22,13 @@ export class CountriesService {
 
   constructor(private http: HttpClient) {
     this.countries = this.countriesFromLocalStorage;
-
     if (this.countries.length === 0) {
       this.countries = this.getCountries(simpleFields);
+    }
+
+    this.alpha3ToCountry = this.alpha3CodeToCountryFromLocalStorage;
+    if (Object.keys(this.alpha3ToCountry).length === 0) {
+      this.alpha3ToCountry = this.alpha3ToCountries;
     }
   }
 
@@ -47,19 +51,8 @@ export class CountriesService {
       )
       .subscribe(
         (restCountries) => {
-          for (const restCountry of restCountries) {
-            this.alpha3ToCountry[restCountry.alpha3Code] = {
-              name: restCountry.name,
-              flag: restCountry.flag,
-            };
-
-            const country = Country.fromRestCountry(restCountry, false);
-            this.countries.push(country);
-          }
-          LocalStorageService.setItemWithExpiry(
-            'alpha3CodeToCountry',
-            JSON.stringify(this.alpha3ToCountry),
-            this.ttl
+          restCountries.map((restCountry) =>
+            this.countries.push(Country.fromRestCountry(restCountry, false))
           );
         },
         (error: HttpErrorResponse) => throwError(error)
@@ -135,5 +128,30 @@ export class CountriesService {
       return country;
     }
     return null;
+  }
+
+  private get alpha3CodeToCountryFromLocalStorage() {
+    const alpha3ToCountry: Alpha3CodeToCountry | null =
+      LocalStorageService.getOrRemoveExpiredItem('alpha3CodeToCountry');
+    return alpha3ToCountry ? alpha3ToCountry : {};
+  }
+
+  private get alpha3ToCountries() {
+    const alpha3ToCountries: Alpha3CodeToCountry = {};
+    this.countries.map(
+      (country) =>
+        (alpha3ToCountries[country.alpha3Code] = {
+          name: country.name,
+          flag: country.flag,
+        })
+    );
+
+    LocalStorageService.setItemWithExpiry(
+      'alpha3CodeToCountry',
+      JSON.stringify(this.alpha3ToCountry),
+      this.ttl
+    );
+
+    return alpha3ToCountries;
   }
 }
