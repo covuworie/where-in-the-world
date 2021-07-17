@@ -1,1 +1,63 @@
-<p>visited works!</p>
+<main>
+  <button class="add" (click)="onAddVisit()">Add Visit</button>
+  <br />
+  <!--Cannot style a datalist. Self-made autocomplete-->
+  <form *ngFor="let visit of visitGroups; let i = index">
+    <fieldset [formGroup]="visit">
+      <legend>Enter Visit</legend>
+      <div>
+        <label for="year">Year</label>
+        <input
+          type="number"
+          name="year"
+          autocomplete="off"
+          formControlName="year"
+          (blur)="toggleYearDurationValidity(visit)"
+        />
+        <span
+          class="help-block help-year"
+          *ngIf="isTouchedAndYearInvalid('year', visit)"
+          >Must be between {{ minYear }} and {{ currentYear }}.</span
+        >
+      </div>
+      <div>
+        <label for="country">Country</label>
+        <input
+          type="text"
+          name="country"
+          placeholder="Search a country..."
+          autocomplete="off"
+          formControlName="country"
+          (keyup)="onSearchCountry(countrySearch.value, i)"
+          #countrySearch
+        />
+        <ul>
+          <li
+            *ngFor="let country of countriesAutoComplete[i]"
+            (click)="onSelectCountry(country, i)"
+          >
+            {{ country }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <label for="duration">Duration (days)</label>
+        <input
+          type="number"
+          name="duration"
+          autocomplete="off"
+          formControlName="duration"
+          (blur)="toggleYearDurationValidity(visit)"
+        />
+        <span
+          class="help-block help-duration"
+          *ngIf="isTouchedAndInvalid('duration', visit)"
+          >Must be between 1 and {{ getMaxDuration(visit.value.year) }}.</span
+        >
+      </div>
+      <div>
+        <button class="delete" (click)="onDeleteVisit(i)">Delete</button>
+      </div>
+    </fieldset>
+  </form>
+</main>

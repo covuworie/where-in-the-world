@@ -18,6 +18,7 @@ import { CurrenciesToNameSymbolPipe } from './countries/country/currency-to-name
 import { VisitedComponent } from './countries/visited/visited.component';
 import { WishListComponent } from './countries/wish-list/wish-list.component';
 import { CountryGridComponent } from './countries/country-grid/country-grid.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CountryGridComponent } from './countries/country-grid/country-grid.comp
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

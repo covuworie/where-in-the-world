@@ -1,0 +1,136 @@
+$grid-gap: 40rem;
+
+main {
+  margin: $grid-gap;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media only screen and (min-width: 1100px) {
+    flex-direction: row;
+  }
+
+  padding: 20rem;
+  margin-bottom: 40rem;
+  border: 1px solid #ddd;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+
+  margin-bottom: 20rem;
+
+  @media only screen and (min-width: 1100px) {
+    flex-direction: row;
+
+    label {
+      padding-right: 10rem;
+    }
+  }
+}
+
+input,
+li {
+  padding: 10rem;
+  height: 20rem;
+  max-width: 600rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0;
+  z-index: 99;
+  min-width: 275rem;
+  width: max-content;
+
+  @media only screen and (min-width: 1100px) {
+    position: absolute;
+    top: 45rem;
+    left: 62rem;
+
+    min-width: 225rem;
+  }
+}
+
+li {
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #ddd;
+  }
+}
+
+label {
+  padding: 10rem 0;
+}
+
+.add {
+  padding: 10rem 20rem 10rem 20rem;
+  background-color: #008cba;
+  border: none;
+  margin-bottom: 40rem;
+  width: 100%;
+  max-width: 625rem;
+
+  @media only screen and (min-width: 1100px) {
+    max-width: 265rem;
+  }
+}
+
+.delete {
+  padding: 10rem 20rem 10rem 20rem;
+  background-color: #f44336;
+  border: none;
+  width: 100%;
+  max-width: 625rem;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #f44336;
+}
+
+.help-block {
+  margin-top: 10rem;
+  color: #f44336;
+
+  @media only screen and (min-width: 1100px) {
+    position: absolute;
+    top: 40rem;
+  }
+}
+
+.help-year {
+  @media only screen and (min-width: 1100px) {
+    padding-left: 40rem;
+  }
+}
+
+.help-duration {
+  @media only screen and (min-width: 1100px) {
+    padding-left: 110rem;
+  }
+}
+
+// Hide input arrow keys
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -19,12 +19,17 @@ export class CountriesService {
   private readonly ttl = 1000 * 60 * 60 * 24 * 30;
   private alpha3ToCountry: Alpha3CodeToCountry = {};
   private countries: ICountry[];
+  private names: string[] = [];
 
   constructor(private http: HttpClient) {
     this.countries = this.countriesFromLocalStorage;
     if (this.countries.length === 0) {
       this.countries = this.getCountries(simpleFields);
     }
+
+    this.countries.forEach((country) => {
+      this.names.push(country.name);
+    });
 
     this.countries.forEach((country) => {
       this.alpha3ToCountry[country.alpha3Code] = {
@@ -63,6 +68,10 @@ export class CountriesService {
     return countries;
   }
 
+  get countryNames() {
+    return this.names;
+  }
+
   filterByRegion(region: Region) {
     const filteredCountries = this.countries.filter(
       (country) => country.region === region
@@ -77,6 +86,17 @@ export class CountriesService {
         country.nativeName.toLowerCase().includes(partialName.toLowerCase())
     );
     return filteredCountries;
+  }
+
+  filterByName(partialName: string) {
+    if (partialName.length === 0) {
+      return [];
+    }
+
+    const filteredNames = this.countryNames.filter((name) =>
+      name.toLowerCase().startsWith(partialName.toLowerCase())
+    );
+    return filteredNames;
   }
 
   alpha3CodeToCountry(alpha3Code: string) {
