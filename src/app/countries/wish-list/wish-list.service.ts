@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CountriesService } from '../countries.service';
 import ICountry, { simpleFields } from '../country/country.model';
 
@@ -25,11 +26,12 @@ export class WishListService {
     try {
       const allCountries = this.countriesService.getCountries(simpleFields);
       this.http
-        .get<{ name: string; id: number }[]>(`${this.jsonServerUrl}`)
+        .get<{ name: string; id: number }[]>(this.jsonServerUrl)
+        .pipe(map((wishList) => wishList.map((wish) => wish.name)))
         .subscribe(
-          (wishList) => {
+          (countryNames) => {
             this.countries = allCountries.filter((country) =>
-              wishList.map((item) => item.name).includes(country.name)
+              countryNames.includes(country.name)
             );
             this.countriesChanged.next(this.countries);
           },
@@ -67,6 +69,7 @@ export class WishListService {
         }
       )
       .subscribe();
+    this.countriesChanged.next(this.countries);
   }
 
   removeCountry(id: number) {
