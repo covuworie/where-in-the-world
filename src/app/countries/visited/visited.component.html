@@ -1,8 +1,10 @@
 <main>
-  <button class="add" (click)="onAddVisit()">Add Visit</button>
   <br />
   <!--Cannot style a datalist. Self-made autocomplete-->
-  <form *ngFor="let visit of visitGroups; let i = index">
+  <form
+    *ngFor="let visit of visitGroups; let i = index"
+    (change)="onFormChanged(i)"
+  >
     <fieldset [formGroup]="visit">
       <legend>Enter Visit</legend>
       <div>
@@ -56,8 +58,13 @@
         >
       </div>
       <div>
-        <button class="delete" (click)="onDeleteVisit(i)">Delete</button>
+        <button type="button" class="delete" (click)="onDeleteVisit(i)">
+          Delete
+        </button>
       </div>
     </fieldset>
   </form>
+  <button type="button" class="add" (click)="onAddVisit()">
+    <fa-icon [icon]="faPlus"></fa-icon> Add
+  </button>
 </main>
