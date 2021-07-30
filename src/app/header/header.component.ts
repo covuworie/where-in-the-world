@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { faBars, faHeart, faMoon } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faHeart,
+  faMoon,
+  faSun,
+} from '@fortawesome/free-solid-svg-icons';
 import { VisitedService } from 'src/app/countries/visited/visited.service';
 import { WishListService } from 'src/app/countries/wish-list/wish-list.service';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +15,15 @@ import { WishListService } from 'src/app/countries/wish-list/wish-list.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  faMoon = faMoon;
   faBars = faBars;
   faHeart = faHeart;
+  faMoon = faMoon;
+  faSun = faSun;
 
   constructor(
     private wishListService: WishListService,
-    private visitedService: VisitedService
+    private visitedService: VisitedService,
+    public themeService: ThemeService
   ) {}
 
   get wishListCount() {

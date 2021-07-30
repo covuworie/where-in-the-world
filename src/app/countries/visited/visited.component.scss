@@ -41,6 +41,13 @@ li {
   padding: 10rem;
   height: 20rem;
   max-width: 600rem;
+  background-color: var(--secondary-bg);
+  border: 1px solid #ddd;
+
+  &::placeholder,
+  &:focus {
+    color: var(--color-primary);
+  }
 }
 
 ul {
@@ -63,10 +70,10 @@ ul {
 li {
   cursor: pointer;
   border: 1px solid transparent;
-  background-color: #fff;
+  background-color: var(--theme);
 
   &:hover {
-    background-color: #ddd;
+    background-color: var(--color-dull);
   }
 }
 
@@ -76,18 +83,20 @@ label {
 
 .add {
   padding: 10rem;
+  color: var(--color-primary);
   background-color: inherit;
   font-size: 20rem;
   border: none;
   margin-bottom: 40rem;
 
   &:hover {
-    background-color: #ddd;
+    background-color: var(--color-dull);
   }
 }
 
 .delete {
   padding: 10rem 20rem 10rem 20rem;
+  color: var(--color-primary);
   background-color: #f44336;
   border: none;
   width: 100%;

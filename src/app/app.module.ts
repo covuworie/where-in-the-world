@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryComponent } from './countries/country/country.component';
-import { HeaderComponent } from './header/header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CountryDetailComponent } from './countries/country-detail/country-detail.component';
 import {

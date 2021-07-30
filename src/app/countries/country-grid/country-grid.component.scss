@@ -10,7 +10,5 @@ $grid-gap: 40rem;
 
 .country {
   position: relative;
-
-  background-color: grayscale($color: #f8f8f8);
-  border: 1px solid lightgrey;
+  border: 1px solid var(--color-dull);
 }

@@ -1,9 +1,20 @@
 <header>
   <div>
     <a routerLink="/" class>Where in the world?</a>
-    <button>
+    <button
+      *ngIf="
+        (themeService.currentTheme | async) === 'theme-light';
+        else darkTemplate
+      "
+      (click)="themeService.changeTheme('theme-dark')"
+    >
       <fa-icon [icon]="faMoon" class="moon"></fa-icon><span>Dark Mode</span>
     </button>
+    <ng-template #darkTemplate>
+      <button (click)="themeService.changeTheme('theme-light')">
+        <fa-icon [icon]="faSun" class="sun"></fa-icon><span>Light Mode</span>
+      </button>
+    </ng-template>
   </div>
   <nav>
     <div>

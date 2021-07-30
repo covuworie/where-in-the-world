@@ -14,7 +14,6 @@ header {
       padding: 20rem 0 20rem 0;
 
       &:hover {
-        color: lighten(#000, 40%);
         background-color: transparent;
       }
     }
@@ -22,6 +21,7 @@ header {
     button {
       border: none;
       background-color: transparent;
+      color: var(--color-primary);
 
       @media only screen and (max-width: 500px) {
         padding: 20rem;
@@ -37,13 +37,13 @@ header {
       }
 
       &:hover {
-        background-color: #ddd;
+        background-color: var(--color-dull);
       }
     }
   }
 
   nav {
-    border: solid #ddd;
+    border: solid var(--color-dull);
     border-width: 1px 0 1px 0;
 
     div {
@@ -69,5 +69,10 @@ header {
 
 .active-link,
 a:hover {
-  background-color: #ddd;
+  background-color: var(--color-dull);
+}
+
+.moon,
+.sun {
+  color: var(--color-primary);
 }

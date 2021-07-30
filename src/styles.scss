@@ -1,14 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~normalize.css";
 
+.theme-light {
+  --primary: #2577c1;
+  --secondary-bg: #fff;
+  --color-primary: #000;
+  --color-dull: #ddd;
+  --theme: #fff;
+}
+
+.theme-dark {
+  --primary: #424242;
+  --secondary-bg: #424242;
+  --color-primary: #fff;
+  --color-dull: #696969;
+  --theme: #424242;
+}
+
+// global theme for body element
+body {
+  color: var(--color-primary);
+  background-color: var(--secondary-bg);
+}
+
 html {
   font-size: 1px;
-  background-color: grayscale($color: #f8f8f8);
 }
 
 a {
   text-decoration: none;
-  color: #000;
+  color: var(--color-primary);
 }
 
 button:hover,

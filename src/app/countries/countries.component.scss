@@ -12,7 +12,13 @@ main {
   input[type="text"] {
     padding: 9rem 0 9rem 9rem;
     width: 400rem;
-    border: none;
+    border: solid 1px var(--color-dull);
+    background-color: var(--theme);
+
+    &::placeholder,
+    &:focus {
+      color: var(--color-primary);
+    }
 
     @media only screen and (max-width: 700px) {
       width: 100%;
@@ -24,18 +30,18 @@ main {
     display: none;
 
     &:checked + label {
-      background-color: #ddd;
+      background-color: var(--color-dull);
     }
 
     &:hover + label {
-      background-color: #ddd;
+      background-color: var(--color-dull);
     }
   }
 
   label {
     display: inline-block;
     position: relative;
-    background-color: #fff;
+    background-color: var(--theme);
     width: 150rem;
     padding: 10rem;
     font-size: 14rem;
@@ -75,7 +81,7 @@ main {
   fa-icon {
     position: absolute;
     padding: 10rem;
-    color: lightgrey;
+    color: var(--color-primary);
   }
 }
 
