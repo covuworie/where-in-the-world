@@ -1,8 +1,8 @@
-<a routerLink="/countries/{{ country?.name }}"
+<a routerLink="/countries/{{ country.name | hyphenateUri }}"
   ><img [src]="country?.flag" alt="Country flag"
 /></a>
-<a routerLink="/countries/{{ country?.name }}"
-  ><h3>{{ country?.name }}</h3>
+<a routerLink="/countries/{{ country.name | hyphenateUri }}"
+  ><h3>{{ country.name }}</h3>
 </a>
 <ul>
   <li><b>Population</b>: {{ country?.population }}</li>

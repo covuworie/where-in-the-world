@@ -14,7 +14,8 @@ export class CountryDetailResolverService implements Resolve<ICountry> {
   constructor(private countriesService: CountriesService) {}
 
   resolve(route: ActivatedRouteSnapshot, _: RouterStateSnapshot) {
-    const countryName = route.paramMap.get('name')!;
+    const countryNamePath = route.paramMap.get('name')!;
+    const countryName = countryNamePath.replace(/-/g, ' ');
     return this.countriesService.countryDetails(countryName);
   }
 }

@@ -1,7 +1,7 @@
 <main class="country-details-grid">
   <img class="flag" [src]="country?.flag" alt="Country flag" />
   <div class="overview">
-    <h1>{{ country?.name }}</h1>
+    <h1>{{ country.name }}</h1>
     <ul>
       <li><b>Native Name</b>: {{ country?.nativeName }}</li>
       <li><b>Population</b>: {{ country?.population }}</li>
@@ -31,7 +31,11 @@
     <p><b class="bordering-countries">Bordering Countries</b></p>
     <ul>
       <li *ngFor="let alpha3Code of country?.borders">
-        <a routerLink="/countries/{{ alpha3Code | alpha3ToCountryName }}">
+        <a
+          routerLink="/countries/{{
+            alpha3Code | alpha3ToCountryName | hyphenateUri
+          }}"
+        >
           <img
             src="{{ alpha3Code | alpha3ToCountryFlag }}"
             alt="{{ alpha3Code | alpha3ToCountryName }}"

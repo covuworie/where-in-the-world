@@ -19,6 +19,7 @@ import { VisitedComponent } from './countries/visited/visited.component';
 import { WishListComponent } from './countries/wish-list/wish-list.component';
 import { CountryGridComponent } from './countries/country-grid/country-grid.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HyphenateUriPipe } from './shared/hyphenate-uri.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     VisitedComponent,
     WishListComponent,
     CountryGridComponent,
+    HyphenateUriPipe,
   ],
   imports: [
     BrowserModule,
