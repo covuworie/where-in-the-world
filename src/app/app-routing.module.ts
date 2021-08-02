@@ -5,6 +5,7 @@ import { CountryDetailResolverService } from './countries/country-detail/country
 import { CountryDetailComponent } from './countries/country-detail/country-detail.component';
 import { VisitedComponent } from './countries/visited/visited.component';
 import { WishListComponent } from './countries/wish-list/wish-list.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 const title = 'Where in the world?';
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'countries',
+    pathMatch: 'full',
     component: CountriesComponent,
     data: {
       title: `${title} | Countries`,
@@ -29,6 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'countries/visited',
+    pathMatch: 'full',
     component: VisitedComponent,
     data: {
       title: `${title} | Countries Visited`,
@@ -37,6 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'countries/wish-list',
+    pathMatch: 'full',
     component: WishListComponent,
     data: {
       title: `${title} | Wish List`,
@@ -45,12 +49,25 @@ const routes: Routes = [
   },
   {
     path: 'countries/:name',
+    pathMatch: 'full',
     component: CountryDetailComponent,
     resolve: { countryDetail: CountryDetailResolverService },
     data: {
       title: `${title} | {{ country }} Details`,
       description: `{{ country }} Details`,
     },
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent,
+    data: {
+      title: `${title} | Page Not Found`,
+      description: 'Page Not Found',
+    },
+  },
+  {
+    path: '**',
+    redirectTo: '404',
   },
 ];
 
