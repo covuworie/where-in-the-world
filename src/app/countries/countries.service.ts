@@ -17,26 +17,13 @@ export class CountriesService {
   private readonly baseUrl = 'https://restcountries.eu/rest/v2';
   // 30 days time to live (TTL) as the countries data is updated on the order of months
   private readonly ttl = 1000 * 60 * 60 * 24 * 30;
-  private alpha3ToCountry: Alpha3CodeToCountry = {};
   private countries: ICountry[];
-  private names: string[] = [];
 
   constructor(private http: HttpClient) {
     this.countries = this.countriesFromLocalStorage;
     if (this.countries.length === 0) {
       this.countries = this.getCountries(simpleFields);
     }
-
-    this.countries.forEach((country) => {
-      this.names.push(country.name);
-    });
-
-    this.countries.forEach((country) => {
-      this.alpha3ToCountry[country.alpha3Code] = {
-        name: country.name,
-        flag: country.flag,
-      };
-    });
   }
 
   getCountries(fields: string[]) {
@@ -69,7 +56,12 @@ export class CountriesService {
   }
 
   get countryNames() {
-    return this.names;
+    const names: string[] = [];
+    this.countries.forEach((country) => {
+      names.push(country.name);
+    });
+
+    return names;
   }
 
   filterByRegion(region: Region) {
@@ -100,7 +92,15 @@ export class CountriesService {
   }
 
   alpha3CodeToCountry(alpha3Code: string) {
-    return this.alpha3ToCountry[alpha3Code];
+    const alpha3ToCountry: Alpha3CodeToCountry = {};
+    this.countries.forEach((country) => {
+      alpha3ToCountry[country.alpha3Code] = {
+        name: country.name,
+        flag: country.flag,
+      };
+    });
+
+    return alpha3ToCountry[alpha3Code];
   }
 
   countryDetails(name: string) {
