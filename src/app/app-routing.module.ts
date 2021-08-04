@@ -4,8 +4,8 @@ import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailResolverService } from './countries/country-detail/country-detail-resolver.service';
 import { CountryDetailComponent } from './countries/country-detail/country-detail.component';
 import { VisitedComponent } from './countries/visited/visited.component';
-import { WishListComponent } from './countries/wish-list/wish-list.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 const title = 'Where in the world?';
 

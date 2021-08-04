@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import ICountry from '../country/country.model';
+import ICountry from '../models/country.model';
 import { WishListService } from './wish-list.service';
 
 @Component({

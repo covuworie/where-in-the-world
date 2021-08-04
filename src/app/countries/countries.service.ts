@@ -7,7 +7,7 @@ import ICountry, {
   Alpha3CodeToCountry,
   Country,
   simpleFields,
-} from './country/country.model';
+} from '../models/country.model';
 import { Region } from './regions/region.model';
 
 @Injectable({

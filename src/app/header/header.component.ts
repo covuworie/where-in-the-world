@@ -6,7 +6,8 @@ import {
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
 import { VisitedService } from 'src/app/countries/visited/visited.service';
-import { WishListService } from 'src/app/countries/wish-list/wish-list.service';
+import { WishListService } from '../wish-list/wish-list.service';
+
 import { ThemeService } from './theme.service';
 
 @Component({

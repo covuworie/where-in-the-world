@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { CountriesService } from '../countries.service';
-import ICountry from '../country/country.model';
+import ICountry from '../../models/country.model';
 
 @Injectable({
   providedIn: 'root',

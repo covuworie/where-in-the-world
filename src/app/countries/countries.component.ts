@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from './countries.service';
-import ICountry, { simpleFields } from './country/country.model';
+import ICountry, { simpleFields } from '../models/country.model';
 import { Region, SORTED_REGIONS } from './regions/region.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 

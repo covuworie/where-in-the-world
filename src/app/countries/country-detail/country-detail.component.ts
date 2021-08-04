@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import ICountry from '../country/country.model';
+import ICountry from '../../models/country.model';
 
 @Component({
   selector: 'app-country-detail',

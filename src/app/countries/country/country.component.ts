@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import ICountry from './country.model';
+import ICountry from '../../models/country.model';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { WishListService } from '../wish-list/wish-list.service';
+import { WishListService } from 'src/app/wish-list/wish-list.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
