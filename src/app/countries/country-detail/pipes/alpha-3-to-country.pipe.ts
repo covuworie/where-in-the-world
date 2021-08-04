@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CountriesService } from '../../services/countries/countries.service';
+import { CountriesService } from '../../../services/countries/countries.service';
 
 @Pipe({
   name: 'alpha3ToCountryName',

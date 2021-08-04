@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import ILanguage from '../../models/language.model';
+import ILanguage from '../../../models/language.model';
 
 @Pipe({
   name: 'languagesToNames',

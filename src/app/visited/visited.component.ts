@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { forbiddenCountryValidator } from 'src/app/shared/forbidden-country.directive';
-import { forbiddenMaxDurationValidator } from 'src/app/shared/max-duration.directive';
+import { forbiddenCountryValidator } from 'src/app/visited/directives/forbidden-country.directive';
 import { CountriesService } from '../services/countries/countries.service';
 import IVisited, { Visited } from '../models/visited.model';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { VisitedService } from '../services/visited/visited.service';
 import { YearsService } from '../services/years/years.service';
+import { forbiddenMaxDurationValidator } from './directives/max-duration.directive';
 
 @Component({
   selector: 'app-visited',

@@ -12,14 +12,14 @@ import { CountryDetailComponent } from './countries/country-detail/country-detai
 import {
   Alpha3ToCountryNamePipe,
   Alpha3ToCountryFlagPipe,
-} from './shared/country/alpha-3-to-country.pipe';
-import { LanguagesToNamePipe } from './shared/country/languages-to-names.pipe';
-import { CurrenciesToNameSymbolPipe } from './shared/country/currency-to-name-symbol.pipe';
+} from './countries/country-detail/pipes/alpha-3-to-country.pipe';
+import { LanguagesToNamePipe } from './countries/country-detail/pipes/languages-to-names.pipe';
+import { CurrenciesToNameSymbolPipe } from './countries/country-detail/pipes/currency-to-name-symbol.pipe';
 import { VisitedComponent } from './visited/visited.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { CountryGridComponent } from './shared/country-grid/country-grid.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HyphenateUriPipe } from './shared/hyphenate-uri.pipe';
+import { HyphenateUriPipe } from './shared/pipes/hyphenate-uri.pipe';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 @NgModule({
