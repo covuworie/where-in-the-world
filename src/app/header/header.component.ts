@@ -5,10 +5,9 @@ import {
   faMoon,
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
-import { VisitedService } from '../services/visited.service';
-import { WishListService } from '../wish-list/wish-list.service';
-
-import { ThemeService } from './theme.service';
+import { ThemeService } from '../services/theme/theme.service';
+import { VisitedService } from '../services/visited/visited.service';
+import { WishListService } from '../services/wish-list/wish-list.service';
 
 @Component({
   selector: 'app-header',

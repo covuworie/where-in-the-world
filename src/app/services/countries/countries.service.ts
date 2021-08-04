@@ -2,13 +2,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { LocalStorageService } from '../shared/local-storage.service';
+import { Region } from 'src/app/models/region.model';
 import ICountry, {
   Alpha3CodeToCountry,
   Country,
   simpleFields,
-} from '../models/country.model';
-import { Region } from './regions/region.model';
+} from '../../models/country.model';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',

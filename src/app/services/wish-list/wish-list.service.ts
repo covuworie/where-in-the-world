@@ -6,8 +6,8 @@ import {
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import ICountry, { simpleFields } from 'src/app/models/country.model';
 import { CountriesService } from '../countries/countries.service';
-import ICountry, { simpleFields } from '../models/country.model';
 
 @Injectable({
   providedIn: 'root',

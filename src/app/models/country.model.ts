@@ -1,5 +1,5 @@
-import ICurrency from '../countries/country/currency';
-import ILanguage from '../countries/country/language';
+import ICurrency from './currency.model';
+import ILanguage from './language.model';
 
 export default interface ICountry {
   numericCode: number;

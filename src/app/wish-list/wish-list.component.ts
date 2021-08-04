@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import ICountry from '../models/country.model';
-import { WishListService } from './wish-list.service';
+import { WishListService } from '../services/wish-list/wish-list.service';
 
 @Component({
   selector: 'app-wish-list',

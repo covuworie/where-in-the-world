@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import ICurrency from './currency';
+import ICurrency from 'src/app/models/currency.model';
 
 @Pipe({
   name: 'currenciesToNameSymbol',

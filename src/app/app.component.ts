@@ -3,9 +3,9 @@ import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { CountriesService } from './countries/countries.service';
-import { Theme, ThemeService } from './header/theme.service';
-import { SeoService } from './shared/seo.service';
+import { CountriesService } from './services/countries/countries.service';
+import { SeoService } from './services/seo/seo.service';
+import { Theme, ThemeService } from './services/theme/theme.service';
 
 @Component({
   selector: 'app-root',

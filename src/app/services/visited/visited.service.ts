@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
-import IVisited from '../models/visited.model';
+import IVisited from '../../models/visited.model';
 
 type HttpVerb = 'post' | 'put';
 
