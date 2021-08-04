@@ -4,10 +4,10 @@ import { Subscription } from 'rxjs';
 import { forbiddenCountryValidator } from 'src/app/shared/forbidden-country.directive';
 import { forbiddenMaxDurationValidator } from 'src/app/shared/max-duration.directive';
 import { YearsService } from 'src/app/shared/years.service';
-import { CountriesService } from '../countries.service';
-import IVisited, { Visited } from './visited.model';
-import { VisitedService } from './visited.service';
+import { CountriesService } from '../countries/countries.service';
+import IVisited, { Visited } from '../models/visited.model';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { VisitedService } from '../services/visited.service';
 
 @Component({
   selector: 'app-visited',

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailResolverService } from './countries/country-detail/country-detail-resolver.service';
 import { CountryDetailComponent } from './countries/country-detail/country-detail.component';
-import { VisitedComponent } from './countries/visited/visited.component';
+import { VisitedComponent } from './visited/visited.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 
