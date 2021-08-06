@@ -1,78 +1,50 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CountriesComponent } from './countries/countries.component';
-import { CountryDetailResolverService } from './services/country-detail/country-detail-resolver.service';
-import { CountryDetailComponent } from './countries/country-detail/country-detail.component';
-import { VisitedComponent } from './visited/visited.component';
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
-import { WishListComponent } from './wish-list/wish-list.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { TITLE } from './services/seo/seo.service';
 
-const title = 'Where in the world?';
-
-const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: '',
     redirectTo: '/countries',
     pathMatch: 'full',
     data: {
-      title: title,
+      title: TITLE,
       description:
         'An application to view details on countries, maintain a list of visited countries and to maintain a wish list of countries you would like to visit.',
     },
   },
   {
     path: 'countries',
-    pathMatch: 'full',
-    component: CountriesComponent,
-    data: {
-      title: `${title} | Countries`,
-      description: 'A List of Countries',
-    },
+    loadChildren: () =>
+      import('./countries/countries.module').then((m) => m.CountriesModule),
   },
   {
-    path: 'countries/visited',
-    pathMatch: 'full',
-    component: VisitedComponent,
-    data: {
-      title: `${title} | Countries Visited`,
-      description: 'A List of Countries You Have Visited',
-    },
+    path: 'visited',
+    loadChildren: () =>
+      import('./visited/visited.module').then((m) => m.VisitedModule),
   },
   {
-    path: 'countries/wish-list',
-    pathMatch: 'full',
-    component: WishListComponent,
-    data: {
-      title: `${title} | Wish List`,
-      description: 'A List of Countries You Would Like to Visit',
-    },
-  },
-  {
-    path: 'countries/:name',
-    pathMatch: 'full',
-    component: CountryDetailComponent,
-    resolve: { countryDetail: CountryDetailResolverService },
-    data: {
-      title: `${title} | {{ country }} Details`,
-      description: `{{ country }} Details`,
-    },
+    path: 'wish-list',
+    loadChildren: () =>
+      import('./wish-list/wish-list.module').then((m) => m.WishListModule),
   },
   {
     path: '404',
-    component: PageNotFoundComponent,
-    data: {
-      title: `${title} | Page Not Found`,
-      description: 'Page Not Found',
-    },
+    loadChildren: () =>
+      import('./page-not-found/page-not-found.module').then(
+        (m) => m.PageNotFoundModule
+      ),
   },
   {
     path: '**',
-    redirectTo: '404',
+    redirectTo: '/404',
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

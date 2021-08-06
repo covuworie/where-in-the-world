@@ -4,22 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WishListModule } from './wish-list/wish-list.module';
 import { SharedModule } from './shared/shared.module';
-import { VisitedModule } from './visited/visited.module';
-import { CountriesModule } from './countries/countries.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CountriesModule,
-    SharedModule,
-    VisitedModule,
-    WishListModule,
-  ],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })

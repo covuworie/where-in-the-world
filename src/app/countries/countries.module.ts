@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CurrenciesToNameSymbolPipe } from './country-detail/pipes/currency-to-name-symbol.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CountriesRoutingModule } from './countries-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CurrenciesToNameSymbolPipe,
     LanguagesToNamePipe,
   ],
-  imports: [CommonModule, RouterModule, SharedModule, FontAwesomeModule],
-  exports: [CountriesComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SharedModule,
+    FontAwesomeModule,
+    CountriesRoutingModule,
+  ],
 })
 export class CountriesModule {}

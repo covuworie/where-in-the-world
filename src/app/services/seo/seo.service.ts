@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
+export const TITLE = 'Where in the world?';
+
 @Injectable({
   providedIn: 'root',
 })
