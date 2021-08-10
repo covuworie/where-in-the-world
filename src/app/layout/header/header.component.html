@@ -25,7 +25,7 @@
         >Countries</a
       >
       <a routerLink="/visited" routerLinkActive="active-link"
-        >Visited ({{ visitedCount }})</a
+        >Visited ({{ (visitedStoreService.visits | async)!.length }})</a
       >
       <a routerLink="/wish-list" routerLinkActive="active-link"
         ><fa-icon [icon]="faHeart"></fa-icon> Wish List ({{ wishListCount }})</a

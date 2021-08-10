@@ -5,8 +5,8 @@ import {
   faMoon,
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
+import { VisitedStoreService } from 'src/app/visited/store/visited-store.service';
 import { ThemeService } from '../../services/theme/theme.service';
-import { VisitedService } from '../../services/visited/visited.service';
 import { WishListService } from '../../services/wish-list/wish-list.service';
 
 @Component({
@@ -22,15 +22,11 @@ export class HeaderComponent {
 
   constructor(
     private wishListService: WishListService,
-    private visitedService: VisitedService,
+    public visitedStoreService: VisitedStoreService,
     public themeService: ThemeService
   ) {}
 
   get wishListCount() {
     return this.wishListService.countries.length;
-  }
-
-  get visitedCount() {
-    return this.visitedService.visits.length;
   }
 }

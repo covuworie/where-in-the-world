@@ -5,9 +5,9 @@ import { forbiddenCountryValidator } from 'src/app/visited/directives/forbidden-
 import { CountriesService } from '../services/countries/countries.service';
 import IVisited, { Visited } from '../models/visited.model';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { VisitedService } from '../services/visited/visited.service';
 import { YearsService } from '../services/years/years.service';
 import { forbiddenMaxDurationValidator } from './directives/max-duration.directive';
+import { VisitedStoreService } from './store/visited-store.service';
 
 @Component({
   selector: 'app-visited',
@@ -26,21 +26,12 @@ export class VisitedComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private countriesService: CountriesService,
-    private visitedService: VisitedService
+    private visitedStoreService: VisitedStoreService
   ) {}
 
   ngOnInit(): void {
-    this.visitedService.visits.forEach((visit) => {
-      this.setFormControls({
-        id: visit.id.toString(),
-        year: visit.year.toString(),
-        country: visit.country.toString(),
-        duration: visit.duration.toString(),
-      });
-      this.ids.push(visit.id);
-    });
     this.subscriptions.add(
-      this.visitedService.visitsChanged.subscribe((visits) => {
+      this.visitedStoreService.visits.subscribe((visits) => {
         // not page reload
         if (this.visits.length > 0) {
           return;
@@ -91,7 +82,7 @@ export class VisitedComponent implements OnInit, OnDestroy {
     const id = this.ids[index];
 
     this.ids.splice(index, 1);
-    this.visitedService.removeVisit(id);
+    this.visitedStoreService.removeVisit(id);
   }
 
   onSearchCountry(partialName: string, index: number) {
@@ -122,14 +113,14 @@ export class VisitedComponent implements OnInit, OnDestroy {
       const id = Math.max(1, Math.max(...this.ids) + 1);
       this.ids[index] = id;
       const visit: IVisited = { ...visitControl.value, id };
-      this.visitedService.addVisit(Visited.fromObject(visit));
+      this.visitedStoreService.addVisit(Visited.fromObject(visit));
       return;
     }
 
     // editing
     const id = this.ids[index];
     const visit: IVisited = { ...visitControl.value, id };
-    this.visitedService.updateVisit(Visited.fromObject(visit));
+    this.visitedStoreService.updateVisit(Visited.fromObject(visit));
   }
 
   toggleYearDurationValidity(visit: FormGroup) {
