@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { forbiddenCountryValidator } from 'src/app/visited/directives/forbidden-country.directive';
 import { CountriesService } from '../services/countries/countries.service';
-import IVisited, { Visited } from '../models/visited.model';
+import { Visited } from '../models/visited.model';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { YearsService } from '../services/years/years.service';
 import { forbiddenMaxDurationValidator } from './directives/max-duration.directive';
@@ -40,7 +40,6 @@ export class VisitedComponent implements OnInit, OnDestroy {
         // page reload
         visits.forEach((visit) => {
           this.setFormControls({
-            id: visit.id.toString(),
             year: visit.year.toString(),
             country: visit.country.toString(),
             duration: visit.duration.toString(),
@@ -72,7 +71,7 @@ export class VisitedComponent implements OnInit, OnDestroy {
   }
 
   onAddVisit() {
-    this.setFormControls({ id: '', year: '', country: '', duration: '' });
+    this.setFormControls({ year: '', country: '', duration: '' });
     this.ids.push(-1); // signifies invalid
   }
 
@@ -112,15 +111,17 @@ export class VisitedComponent implements OnInit, OnDestroy {
     if (this.ids[index] === -1) {
       const id = Math.max(1, Math.max(...this.ids) + 1);
       this.ids[index] = id;
-      const visit: IVisited = { ...visitControl.value, id };
-      this.visitedStoreService.addVisit(Visited.fromObject(visit));
+      this.visitedStoreService.addVisit(
+        Visited.fromObject({ ...visitControl.value, id })
+      );
       return;
     }
 
     // editing
     const id = this.ids[index];
-    const visit: IVisited = { ...visitControl.value, id };
-    this.visitedStoreService.updateVisit(Visited.fromObject(visit));
+    this.visitedStoreService.updateVisit(
+      Visited.fromObject({ ...visitControl.value, id })
+    );
   }
 
   toggleYearDurationValidity(visit: FormGroup) {
@@ -163,14 +164,12 @@ export class VisitedComponent implements OnInit, OnDestroy {
   }
 
   private setFormControls(visit: {
-    id: string;
     year: string;
     country: string;
     duration: string;
   }) {
     const group = this.fb.group(
       {
-        id: [visit.id], // not in template => only for backend
         year: [
           visit.year,
           [
