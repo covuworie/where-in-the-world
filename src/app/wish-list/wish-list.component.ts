@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import ICountry from '../models/country.model';
-import { WishListService } from '../services/wish-list/wish-list.service';
+import { map } from 'rxjs/operators';
+import ICountry, { simpleFields } from '../models/country.model';
+import { CountriesService } from '../services/countries/countries.service';
+import { WishListStoreService } from './store/wish-list-store.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -9,18 +11,25 @@ import { WishListService } from '../services/wish-list/wish-list.service';
   styleUrls: ['./wish-list.component.scss'],
 })
 export class WishListComponent implements OnInit, OnDestroy {
-  countries: ICountry[] = [];
+  wishList: ICountry[] = [];
 
   private subscriptions = new Subscription();
 
-  constructor(private wishListService: WishListService) {}
+  constructor(
+    private wishListStoreService: WishListStoreService,
+    private countriesService: CountriesService
+  ) {}
 
   ngOnInit(): void {
-    this.countries = this.wishListService.countries;
     this.subscriptions.add(
-      this.wishListService.countriesChanged.subscribe(
-        (countries) => (this.countries = countries)
-      )
+      this.wishListStoreService.wishList
+        .pipe(map((iWish) => iWish.map((wish) => wish.name)))
+        .subscribe((countryNames) => {
+          const allCountries = this.countriesService.getCountries(simpleFields);
+          this.wishList = allCountries.filter((country) =>
+            countryNames.includes(country.name)
+          );
+        })
     );
   }
 
