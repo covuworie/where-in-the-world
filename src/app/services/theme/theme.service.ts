@@ -7,14 +7,16 @@ export type Theme = 'theme-light' | 'theme-dark';
   providedIn: 'root',
 })
 export class ThemeService {
-  currentTheme = new BehaviorSubject(
+  private _currentTheme = new BehaviorSubject(
     localStorage.getItem('theme') || 'theme-light'
   );
+
+  public readonly currentTheme = this._currentTheme.asObservable();
 
   constructor() {}
 
   changeTheme(theme: Theme) {
-    this.currentTheme.next(theme);
+    this._currentTheme.next(theme);
     localStorage.setItem('theme', theme);
   }
 }
