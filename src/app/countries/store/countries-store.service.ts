@@ -1,63 +1,49 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { Region } from 'src/app/models/region.model';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import ICountry, {
   Alpha3CodeToCountry,
   Country,
   simpleFields,
 } from '../../models/country.model';
-import { LocalStorageService } from '../local-storage/local-storage.service';
+import { CountriesBackendService } from '../backend/countries-backend.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CountriesService {
-  private readonly baseUrl = 'https://restcountries.eu/rest/v2';
+export class CountriesStoreService {
   // 30 days time to live (TTL) as the countries data is updated on the order of months
   private readonly ttl = 1000 * 60 * 60 * 24 * 30;
-  private countries: ICountry[];
+  private _countries = new BehaviorSubject<ICountry[]>([]);
 
-  constructor(private http: HttpClient) {
-    this.countries = this.countriesFromLocalStorage;
-    if (this.countries.length === 0) {
-      this.countries = this.getCountries(simpleFields);
-    }
+  public readonly countries = this._countries.asObservable();
+
+  constructor(private countriesBackendService: CountriesBackendService) {
+    this.loadInitialData();
   }
 
   getCountries(fields: string[]) {
-    if (this.countries.length > 0) {
-      return this.countries;
+    let countries = this._countries.getValue();
+    if (countries.length > 0) {
+      return countries;
     }
 
-    const countries: ICountry[] = [];
-    const fieldsSlug = fields.join(';');
-    this.http
-      .get<ICountry[]>(`${this.baseUrl}/all?fields=${fieldsSlug}`)
-      .pipe(
-        tap((restCountries) =>
-          LocalStorageService.setItemWithExpiry(
-            'countries',
-            JSON.stringify(restCountries),
-            this.ttl
-          )
-        )
-      )
-      .subscribe(
-        (restCountries) => {
-          restCountries.map((restCountry) =>
-            countries.push(Country.fromRestCountry(restCountry, false))
-          );
-        },
-        (error: HttpErrorResponse) => throwError(error)
-      );
+    this.countriesBackendService.getCountries(fields).subscribe(
+      (restCountries) => {
+        restCountries.map((restCountry) =>
+          countries.push(Country.fromRestCountry(restCountry, false))
+        );
+      },
+      (error: HttpErrorResponse) => throwError(error)
+    );
     return countries;
   }
 
   get countryNames() {
     const names: string[] = [];
-    this.countries.forEach((country) => {
+    this._countries.getValue().forEach((country) => {
       names.push(country.name);
     });
 
@@ -65,18 +51,20 @@ export class CountriesService {
   }
 
   filterByRegion(region: Region) {
-    const filteredCountries = this.countries.filter(
-      (country) => country.region === region
-    );
+    const filteredCountries = this._countries
+      .getValue()
+      .filter((country) => country.region === region);
     return filteredCountries;
   }
 
   filterByCountry(partialName: string) {
-    const filteredCountries = this.countries.filter(
-      (country) =>
-        country.name.toLowerCase().includes(partialName.toLowerCase()) ||
-        country.nativeName.toLowerCase().includes(partialName.toLowerCase())
-    );
+    const filteredCountries = this._countries
+      .getValue()
+      .filter(
+        (country) =>
+          country.name.toLowerCase().includes(partialName.toLowerCase()) ||
+          country.nativeName.toLowerCase().includes(partialName.toLowerCase())
+      );
     return filteredCountries;
   }
 
@@ -93,7 +81,7 @@ export class CountriesService {
 
   alpha3CodeToCountry(alpha3Code: string) {
     const alpha3ToCountry: Alpha3CodeToCountry = {};
-    this.countries.forEach((country) => {
+    this._countries.getValue().forEach((country) => {
       alpha3ToCountry[country.alpha3Code] = {
         name: country.name,
         flag: country.flag,
@@ -116,19 +104,7 @@ export class CountriesService {
       return country;
     }
 
-    return this.http
-      .get<ICountry[]>(`${this.baseUrl}/name/${name}?fullText=true`)
-      .pipe(
-        map((restCountries) => restCountries[0]),
-        tap((restCountry) =>
-          LocalStorageService.setItemWithExpiry(
-            name,
-            JSON.stringify(restCountry),
-            this.ttl
-          )
-        ),
-        map((restCountry) => Country.fromRestCountry(restCountry))
-      );
+    return this.countriesBackendService.getCountryDetails(name);
   }
 
   private get countriesFromLocalStorage() {
@@ -151,5 +127,13 @@ export class CountriesService {
       return country;
     }
     return null;
+  }
+
+  private loadInitialData() {
+    let countries = this.countriesFromLocalStorage;
+    if (countries.length === 0) {
+      countries = this.getCountries(simpleFields);
+    }
+    this._countries.next(countries);
   }
 }

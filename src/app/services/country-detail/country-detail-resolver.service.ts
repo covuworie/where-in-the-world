@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { CountriesService } from '../countries/countries.service';
+import { CountriesStoreService } from 'src/app/countries/store/countries-store.service';
 import ICountry from '../../models/country.model';
 
 @Injectable({
@@ -13,17 +13,17 @@ import ICountry from '../../models/country.model';
 })
 export class CountryDetailResolverService implements Resolve<ICountry> {
   constructor(
-    private countriesService: CountriesService,
+    private countriesStoreService: CountriesStoreService,
     private router: Router
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, _: RouterStateSnapshot) {
     const path = route.paramMap.get('name')!;
     const name = path.replace(/-/g, ' ');
-    if (!this.countriesService.countryNames.includes(name)) {
+    if (!this.countriesStoreService.countryNames.includes(name)) {
       this.router.navigate(['404']);
     }
 
-    return this.countriesService.countryDetails(name);
+    return this.countriesStoreService.countryDetails(name);
   }
 }

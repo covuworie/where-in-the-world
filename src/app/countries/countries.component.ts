@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CountriesService } from '../services/countries/countries.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import ICountry, { simpleFields } from '../models/country.model';
 import { Region, SORTED_REGIONS } from '../models/region.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { CountriesStoreService } from './store/countries-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss'],
 })
-export class CountriesComponent implements OnInit {
+export class CountriesComponent implements OnInit, OnDestroy {
   faSearch = faSearch;
 
   readonly filterHeader = 'All Regions';
@@ -18,16 +19,25 @@ export class CountriesComponent implements OnInit {
   countries: ICountry[] = [];
   private regionsOpen = false;
   private allCountries: ICountry[] = [];
+  private subscription = new Subscription();
 
-  constructor(private countriesService: CountriesService) {}
+  constructor(private countriesStoreService: CountriesStoreService) {}
 
   ngOnInit(): void {
-    try {
-      this.allCountries = this.countriesService.getCountries(simpleFields);
-    } catch (error: any) {
-      console.error(error);
-    }
-    this.countries = this.allCountries;
+    this.subscription.add(
+      this.countriesStoreService.countries.subscribe(
+        (_) => {
+          this.allCountries =
+            this.countriesStoreService.getCountries(simpleFields);
+          this.countries = this.allCountries;
+        },
+        (error) => console.log(error)
+      )
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onChangeRegion(value: string) {
@@ -39,7 +49,7 @@ export class CountriesComponent implements OnInit {
       this.toggleDropdown();
       return;
     }
-    const filteredCountries = this.countriesService.filterByRegion(
+    const filteredCountries = this.countriesStoreService.filterByRegion(
       value as Region
     );
     this.countries = filteredCountries;
@@ -61,6 +71,6 @@ export class CountriesComponent implements OnInit {
   }
 
   onSearchCountry(value: string) {
-    this.countries = this.countriesService.filterByCountry(value);
+    this.countries = this.countriesStoreService.filterByCountry(value);
   }
 }

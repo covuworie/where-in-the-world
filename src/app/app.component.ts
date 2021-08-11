@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { CountriesService } from './services/countries/countries.service';
+import { CountriesStoreService } from './countries/store/countries-store.service';
 import { SeoService } from './services/seo/seo.service';
 import { Theme, ThemeService } from './services/theme/theme.service';
 
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     public themeService: ThemeService,
     private seoService: SeoService,
-    private countriesService: CountriesService,
+    private countriesStoreService: CountriesStoreService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private renderer: Renderer2
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private updateTitleAndDescription(data: Data) {
     const path = this.router.url;
     const country = decodeURIComponent(path.split('/countries/')[1]) || '';
-    if (!this.countriesService.countryNames.includes(country)) {
+    if (!this.countriesStoreService.countryNames.includes(country)) {
       return;
     }
 

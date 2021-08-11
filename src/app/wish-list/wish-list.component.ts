@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CountriesStoreService } from '../countries/store/countries-store.service';
 import ICountry, { simpleFields } from '../models/country.model';
-import { CountriesService } from '../services/countries/countries.service';
 import { WishListStoreService } from './store/wish-list-store.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class WishListComponent implements OnInit, OnDestroy {
 
   constructor(
     private wishListStoreService: WishListStoreService,
-    private countriesService: CountriesService
+    private countriesStoreService: CountriesStoreService
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +25,8 @@ export class WishListComponent implements OnInit, OnDestroy {
       this.wishListStoreService.wishList
         .pipe(map((iWish) => iWish.map((wish) => wish.name)))
         .subscribe((countryNames) => {
-          const allCountries = this.countriesService.getCountries(simpleFields);
+          const allCountries =
+            this.countriesStoreService.getCountries(simpleFields);
           this.wishList = allCountries.filter((country) =>
             countryNames.includes(country.name)
           );

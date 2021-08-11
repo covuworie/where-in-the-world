@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { forbiddenCountryValidator } from 'src/app/visited/directives/forbidden-country.directive';
-import { CountriesService } from '../services/countries/countries.service';
 import { Visited } from '../models/visited.model';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { YearsService } from '../services/years/years.service';
 import { forbiddenMaxDurationValidator } from './directives/max-duration.directive';
 import { VisitedStoreService } from './store/visited-store.service';
+import { CountriesStoreService } from '../countries/store/countries-store.service';
 
 @Component({
   selector: 'app-visited',
@@ -25,7 +25,7 @@ export class VisitedComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private countriesService: CountriesService,
+    private countriesStoreService: CountriesStoreService,
     private visitedStoreService: VisitedStoreService
   ) {}
 
@@ -86,7 +86,7 @@ export class VisitedComponent implements OnInit, OnDestroy {
 
   onSearchCountry(partialName: string, index: number) {
     this.countriesAutoComplete[index] =
-      this.countriesService.filterByName(partialName);
+      this.countriesStoreService.filterByName(partialName);
     if (
       this.countriesAutoComplete[index].length === 1 &&
       partialName === this.countriesAutoComplete[index][0]
@@ -182,7 +182,7 @@ export class VisitedComponent implements OnInit, OnDestroy {
           visit.country,
           [
             Validators.required,
-            forbiddenCountryValidator(this.countriesService.countryNames),
+            forbiddenCountryValidator(this.countriesStoreService.countryNames),
           ],
         ],
         duration: [visit.duration, [Validators.required, Validators.min(1)]],
