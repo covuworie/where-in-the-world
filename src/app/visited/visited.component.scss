@@ -41,11 +41,11 @@ li {
   padding: 10rem;
   height: 20rem;
   max-width: 600rem;
+  color: var(--color-primary);
   background-color: var(--secondary-bg);
   border: 1px solid #ddd;
 
-  &::placeholder,
-  &:focus {
+  &::placeholder {
     color: var(--color-primary);
   }
 }
