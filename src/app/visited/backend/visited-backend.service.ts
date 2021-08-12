@@ -25,7 +25,7 @@ export class VisitedBackendService {
   }
 
   removeVisit(id: number) {
-    return this.http.delete(`${this.jsonServerUrl}/${id}`).pipe(shareReplay());
+    return this.http.delete(`${this.jsonServerUrl}/${id}`).pipe(shareReplay(1));
   }
 
   updateVisit(visit: IVisited) {
@@ -37,6 +37,6 @@ export class VisitedBackendService {
       url,
       { ...visit },
       { headers: this.headers }
-    ).pipe(shareReplay());
+    ).pipe(shareReplay(1));
   }
 }

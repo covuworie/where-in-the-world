@@ -50,6 +50,7 @@ export class WishListStoreService {
     this.wishListBackendService.wishList.subscribe(
       (wishList) => {
         this._wishList.getValue().push(...wishList);
+        this._wishList.next(wishList);
       },
       (error: HttpErrorResponse) => throwError(error)
     );

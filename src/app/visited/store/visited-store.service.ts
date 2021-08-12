@@ -48,6 +48,7 @@ export class VisitedStoreService {
     this.visitedBackendService.allVisits.subscribe(
       (visits) => {
         this._visits.getValue().push(...visits);
+        this._visits.next(visits);
       },
       (error: HttpErrorResponse) => throwError(error)
     );

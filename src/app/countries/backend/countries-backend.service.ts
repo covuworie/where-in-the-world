@@ -19,7 +19,7 @@ export class CountriesBackendService {
     return this.http
       .get<ICountry[]>(`${this.baseUrl}/all?fields=${fieldsSlug}`)
       .pipe(
-        shareReplay(),
+        shareReplay(1),
         tap((restCountries) =>
           LocalStorageService.setItemWithExpiry(
             'countries',
@@ -34,7 +34,7 @@ export class CountriesBackendService {
     return this.http
       .get<ICountry[]>(`${this.baseUrl}/name/${name}?fullText=true`)
       .pipe(
-        shareReplay(),
+        shareReplay(1),
         map((restCountries) => restCountries[0]),
         tap((restCountry) =>
           LocalStorageService.setItemWithExpiry(

@@ -32,20 +32,19 @@ export class VisitedComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(
       this.visitedStoreService.visits.subscribe((visits) => {
-        // not page reload
-        if (this.visits.length > 0) {
-          return;
-        }
-
-        // page reload
-        visits.forEach((visit) => {
-          this.setFormControls({
-            year: visit.year.toString(),
-            country: visit.country.toString(),
-            duration: visit.duration.toString(),
+        if (
+          visits.length > 0 &&
+          visits.length !== this.visits.controls.length
+        ) {
+          visits.forEach((visit) => {
+            this.setFormControls({
+              year: visit.year.toString(),
+              country: visit.country.toString(),
+              duration: visit.duration.toString(),
+            });
+            this.ids.push(visit.id);
           });
-          this.ids.push(visit.id);
-        });
+        }
       })
     );
   }
