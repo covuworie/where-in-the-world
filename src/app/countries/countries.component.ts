@@ -4,6 +4,7 @@ import { Region, SORTED_REGIONS } from '../models/region.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CountriesStoreService } from './store/countries-store.service';
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-countries',
@@ -21,17 +22,29 @@ export class CountriesComponent implements OnInit, OnDestroy {
   private allCountries: ICountry[] = [];
   private subscription = new Subscription();
 
-  constructor(private countriesStoreService: CountriesStoreService) {}
+  constructor(
+    private countriesStoreService: CountriesStoreService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.subscription.add(
       this.countriesStoreService.countries.subscribe(
         (_) => {
           this.allCountries =
             this.countriesStoreService.getCountries(simpleFields);
           this.countries = this.allCountries;
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500); // remove timeout in production
         },
-        (error) => console.log(error)
+        (error) => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500); // remove timeout in production
+          console.log(error);
+        }
       )
     );
   }

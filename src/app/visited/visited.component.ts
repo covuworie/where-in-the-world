@@ -8,6 +8,7 @@ import { YearsService } from '../services/years/years.service';
 import { forbiddenMaxDurationValidator } from './directives/max-duration.directive';
 import { VisitedStoreService } from './store/visited-store.service';
 import { CountriesStoreService } from '../countries/store/countries-store.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-visited',
@@ -26,10 +27,12 @@ export class VisitedComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private countriesStoreService: CountriesStoreService,
-    private visitedStoreService: VisitedStoreService
+    private visitedStoreService: VisitedStoreService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.subscriptions.add(
       this.visitedStoreService.visits.subscribe((visits) => {
         if (
@@ -45,6 +48,9 @@ export class VisitedComponent implements OnInit, OnDestroy {
             this.ids.push(visit.id);
           });
         }
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500); // remove timeout in production
       })
     );
   }
