@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "json-server": "json-server --watch db.json"
+    "server": "json-server --watch db.json",
+    "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@fortawesome/angular-fontawesome": "^0.9.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "concurrently": "^6.2.1",
     "ngx-alerts": "^10.1.3",
     "ngx-spinner": "^12.0.0",
     "normalize.css": "^8.0.1",
