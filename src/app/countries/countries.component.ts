@@ -5,6 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CountriesStoreService } from './store/countries-store.service';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-countries',
@@ -24,7 +25,8 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   constructor(
     private countriesStoreService: CountriesStoreService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.spinner.hide();
           }, 500); // remove timeout in production
-          console.log(error);
+          this.alert.danger(error.message);
         }
       )
     );

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertService } from 'ngx-alerts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import ICountry from '../../models/country.model';
 
@@ -14,7 +15,8 @@ export class CountryDetailComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private alert: AlertService
   ) {}
 
   ngOnInit() {
@@ -30,8 +32,7 @@ export class CountryDetailComponent implements OnInit {
         setTimeout(() => {
           this.spinner.hide();
         }, 500); // remove timeout in production
-        console.log(error);
-        alert(error.message);
+        this.alert.danger(error.message);
       }
     );
   }
