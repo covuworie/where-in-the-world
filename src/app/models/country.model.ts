@@ -82,14 +82,3 @@ export class Country {
 export type Alpha3CodeToCountry = {
   [key: string]: { name: string; flag: string };
 };
-
-export const simpleFields = [
-  'numericCode',
-  'name',
-  'population',
-  'region',
-  'capital',
-  'flag',
-  'alpha3Code',
-  'nativeName',
-];

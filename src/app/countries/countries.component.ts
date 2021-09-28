@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import ICountry, { simpleFields } from '../models/country.model';
+import ICountry from '../models/country.model';
 import { Region, SORTED_REGIONS } from '../models/region.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CountriesStoreService } from './store/countries-store.service';
@@ -34,8 +34,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.countriesStoreService.countries.subscribe(
         (_) => {
-          this.allCountries =
-            this.countriesStoreService.getCountries(simpleFields);
+          this.allCountries = this.countriesStoreService.getCountries();
           this.countries = this.allCountries;
           setTimeout(() => {
             this.spinner.hide();

@@ -6,7 +6,6 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 import ICountry, {
   Alpha3CodeToCountry,
   Country,
-  simpleFields,
 } from '../../models/country.model';
 import { CountriesBackendService } from '../backend/countries-backend.service';
 
@@ -24,13 +23,13 @@ export class CountriesStoreService {
     this.loadInitialData();
   }
 
-  getCountries(fields: string[]) {
+  getCountries() {
     let countries = this._countries.getValue();
     if (countries.length > 0) {
       return countries;
     }
 
-    this.countriesBackendService.getCountries(fields).subscribe(
+    this.countriesBackendService.getCountries().subscribe(
       (restCountries) => {
         restCountries.map((restCountry) =>
           countries.push(Country.fromRestCountry(restCountry, false))
@@ -132,7 +131,7 @@ export class CountriesStoreService {
   private loadInitialData() {
     let countries = this.countriesFromLocalStorage;
     if (countries.length === 0) {
-      countries = this.getCountries(simpleFields);
+      countries = this.getCountries();
     }
     this._countries.next(countries);
   }

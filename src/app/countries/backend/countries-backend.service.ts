@@ -8,26 +8,23 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
   providedIn: 'root',
 })
 export class CountriesBackendService {
-  private readonly baseUrl = 'https://restcountries.eu/rest/v2';
+  private readonly baseUrl = 'https://restcountries.com/v2/';
   // 30 days time to live (TTL) as the countries data is updated on the order of months
   private readonly ttl = 1000 * 60 * 60 * 24 * 30;
 
   constructor(private http: HttpClient) {}
 
-  getCountries(fields: string[]) {
-    const fieldsSlug = fields.join(';');
-    return this.http
-      .get<ICountry[]>(`${this.baseUrl}/all?fields=${fieldsSlug}`)
-      .pipe(
-        shareReplay(1),
-        tap((restCountries) =>
-          LocalStorageService.setItemWithExpiry(
-            'countries',
-            JSON.stringify(restCountries),
-            this.ttl
-          )
+  getCountries() {
+    return this.http.get<ICountry[]>(`${this.baseUrl}/all/`).pipe(
+      shareReplay(1),
+      tap((restCountries) =>
+        LocalStorageService.setItemWithExpiry(
+          'countries',
+          JSON.stringify(restCountries),
+          this.ttl
         )
-      );
+      )
+    );
   }
 
   getCountryDetails(name: string) {
